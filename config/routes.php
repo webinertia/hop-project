@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Mezzio\Application;
+use Mezzio\Authentication\AuthenticationMiddleware;
+use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
 use Mezzio\MiddlewareFactory;
 use Psr\Container\ContainerInterface;
 
@@ -38,6 +40,42 @@ use Psr\Container\ContainerInterface;
  */
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
-    $app->get('/', App\Handler\HomePageHandler::class, 'home');
+    $app->get('/', ContactManager\Handler\LandingHandler::class, 'home'); // load custom layout for this handler
+    $app->route(
+        '/contacts/dashboard',
+        [
+            BodyParamsMiddleware::class,
+            ContactManager\Handler\DashboardHandler::class
+        ],
+        [
+            'GET',
+            'POST',
+        ],
+        'contacts.dashboard'
+    );
+    $app->route(
+        '/login',
+        [
+            BodyParamsMiddleware::class,
+            App\Handler\LoginHandler::class
+        ],
+        [
+            'GET',
+            'POST',
+        ],
+        'login'
+    );
+    $app->route(
+        '/logout',
+        [
+            BodyParamsMiddleware::class,
+            AuthenticationMiddleware::class,
+            App\Handler\LogoutHandler::class
+        ],
+        [
+            'GET',
+        ],
+        'logout'
+    );
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
 };
