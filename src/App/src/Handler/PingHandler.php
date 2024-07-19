@@ -10,9 +10,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 use function time;
-use function password_hash;
-
-use const PASSWORD_DEFAULT;
 
 class PingHandler implements RequestHandlerInterface
 {
