@@ -42,8 +42,9 @@ final class TableGateway extends Db\AbstractRepository implements UserRepository
 
     public function authenticate(string $credential, ?string $password = null): ?UserInterface
     {
-        $user = $this->findOneByUsername($credential);
-        $hash = $user->getHash();
+        /** @var App\UserRepository\UserEntity */
+        $user = $this->findOneBy('email', $credential);
+        $hash = $user->getPassword();
 
         $this->checkBcryptHash($hash);
         if (password_verify($password, $hash)) {

@@ -18,7 +18,7 @@ final class TableGatewayFactory
     {
         return new TableGateway(
             new Db\TableGateway(
-                'user',
+                'users',
                 $container->get(AdapterInterface::class),
                 null,
                 new HydratingResultSet(

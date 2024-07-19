@@ -32,9 +32,9 @@ class ConfigProvider
     public function getAuthenticationConfig(): array
     {
         return [
-            'redirect' => '/landing',
-            'username' => 'username',
-            'password' => 'hash',
+            'redirect' => '/contacts/dashboard',
+            'username' => 'email',
+            'password' => 'password',
         ];
     }
 

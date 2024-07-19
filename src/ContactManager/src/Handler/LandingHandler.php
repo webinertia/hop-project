@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\View\Model\ViewModel;
 use Mezzio\Template\TemplateRendererInterface;
 
 class LandingHandler implements RequestHandlerInterface
@@ -29,7 +30,7 @@ class LandingHandler implements RequestHandlerInterface
         return new HtmlResponse($this->renderer->render(
             'contact-manager::landing',
             [
-                //'layout' => 'contact-manager::landing-layout'
+                'layout' => 'contact-manager::landing-layout',
             ] // parameters to pass to template
         ));
     }

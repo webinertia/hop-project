@@ -27,8 +27,8 @@ class LoginHandler implements RequestHandlerInterface
 
     public function __construct(
         private TemplateRendererInterface $template,
-        private Login $form,
-        private PhpSession $adapter
+        private PhpSession $adapter,
+        private $config
     ) {
     }
 
@@ -50,9 +50,9 @@ class LoginHandler implements RequestHandlerInterface
 
         // Render and return a response:
         return new HtmlResponse($this->template->render(
-            'app::login',
+            'contact-manager::landing',
             [
-                'form' => $this->form
+                'layout' => 'contact-manager::landing-layout'
             ] // parameters to pass to template
         ));
     }
@@ -81,9 +81,9 @@ class LoginHandler implements RequestHandlerInterface
         }
 
         return new HtmlResponse($this->template->render(
-            'app::login',
+            'contact-manager::landing',
             [
-                'form' => $this->form,
+                'layout' => 'contact-manager::landing-layout',
                 'error' => 'Invalid credentials please try again.'
             ] // parameters to pass to template
         ));
@@ -94,7 +94,8 @@ class LoginHandler implements RequestHandlerInterface
         SessionInterface $session
     ): string {
         /** @var string */
-        $redirect = $session->get(self::REDIRECT_ATTRIBUTE);
+        //$redirect = $session->get(self::REDIRECT_ATTRIBUTE);
+        $redirect = $this->config['redirect'];
 
         if (! $redirect) {
             $uri      = new Uri($request->getHeaderLine('Referer'));

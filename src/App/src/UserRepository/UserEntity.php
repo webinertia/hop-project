@@ -9,18 +9,20 @@ use Cm\Storage\PrimaryKey;
 use Cm\Storage\Schema;
 use Laminas\Db\RowGateway\RowGateway;
 
-final class UserEntity
+final class UserEntity implements Db\EntityInterface
 {
     use Db\EntityTrait;
 
     public function __construct(
         private ?int $id = null,
-        private ?string $userName = null,
+        private ?string $email = null,
         #[\SensitiveParameter]
-        private ?string $hash = null
+        private ?string $password = null
     ) {
         // parent::__construct(PrimaryKey::User->value, Schema::User->value, )
     }
+
+    public function getArrayCopy() { }
 
     public function setId(int $id): void
     {
@@ -32,23 +34,23 @@ final class UserEntity
         return $this->id;
     }
 
-    public function setUserName(string $userName): void
+    public function setEmail(string $email): void
     {
-        $this->userName = $userName;
+        $this->email = $email;
     }
 
-    public function getUserName(): string
+    public function getEmail(): string
     {
-        return $this->userName;
+        return $this->email;
     }
 
-    public function setHash(string $hash): void
+    public function setPassword(string $password): void
     {
-        $this->hash = $hash;
+        $this->password = $password;
     }
 
-    public function getHash(): ?string
+    public function getPassword(): ?string
     {
-        return $this->hash;
+        return $this->password;
     }
 }

@@ -8,6 +8,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
+use Mezzio\Authentication\UserInterface;
 use Mezzio\Template\TemplateRendererInterface;
 
 class DashboardHandler implements RequestHandlerInterface
@@ -24,8 +26,10 @@ class DashboardHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-        // Do some work...
-        // Render and return a response:
+        $currentUser = $request->getAttribute(UserInterface::class);
+        if ($currentUser->getIdentity() === 'guest') {
+            return new RedirectResponse('/');
+        }
         return new HtmlResponse($this->renderer->render(
             'contact-manager::dashboard',
             [] // parameters to pass to template

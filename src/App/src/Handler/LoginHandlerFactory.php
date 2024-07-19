@@ -29,16 +29,16 @@ class LoginHandlerFactory
         /** @var LaminasViewRenderer */
         $renderer    = $container->get(TemplateRendererInterface::class);
         /** @var FormElementManager */
-        $formManager = $container->get(FormElementManager::class);
+        //$formManager = $container->get(FormElementManager::class);
         /** @var Login */
-        $form = $formManager->get(Login::class);
+        //$form = $formManager->get(Login::class);
         /** @var PhpSession */
         $adapter = $container->get(PhpSession::class);
 
         return new LoginHandler(
             $renderer,
-            $form,
-            $adapter
+            $adapter,
+            $container->get('config')['authentication']
         );
     }
 }
