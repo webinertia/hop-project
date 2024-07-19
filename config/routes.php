@@ -53,18 +53,18 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         ],
         'contacts.dashboard'
     );
-    $app->route(
-        '/login',
-        [
-            BodyParamsMiddleware::class,
-            App\Handler\LoginHandler::class
-        ],
-        [
-            'GET',
-            'POST',
-        ],
-        'login'
-    );
+    // $app->route(
+    //     '/login',
+    //     [
+    //         BodyParamsMiddleware::class,
+    //         App\Handler\LoginHandler::class
+    //     ],
+    //     [
+    //         'GET',
+    //         'POST',
+    //     ],
+    //     'login'
+    // );
     $app->route(
         '/logout',
         [
