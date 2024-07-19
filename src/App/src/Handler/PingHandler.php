@@ -21,7 +21,6 @@ class PingHandler implements RequestHandlerInterface
         return new JsonResponse(
             [
                 'ack' => time(),
-                'hash' => password_hash('password', PASSWORD_DEFAULT),
             ]
         );
     }
