@@ -53,18 +53,28 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         ],
         'contacts.dashboard'
     );
-    // $app->route(
-    //     '/login',
-    //     [
-    //         BodyParamsMiddleware::class,
-    //         App\Handler\LoginHandler::class
-    //     ],
-    //     [
-    //         'GET',
-    //         'POST',
-    //     ],
-    //     'login'
-    // );
+    $app->post(
+        '/create/contact',
+        ContactManager\Handler\CreateContactHandler::class,
+        'contact.create.contact'
+    );
+    $app->post(
+        '/create/list',
+        ContactManager\Handler\CreateListHandler::class,
+        'contact.create.list'
+    );
+    $app->route(// This route acts as the login API endpoint
+        '/login',
+        [
+            BodyParamsMiddleware::class,
+            App\Handler\LoginHandler::class
+        ],
+        [
+            'GET',
+            'POST',
+        ],
+        'login'
+    );
     $app->route(
         '/logout',
         [

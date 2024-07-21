@@ -113,22 +113,8 @@ $this->inlineScript()
             'integrity'   => 'sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ=',
             'crossorigin' => 'anonymous',
         ],
-    )->appendScript(
-        '        const connectedSortables =
-            document.querySelectorAll(".connectedSortable");
-        connectedSortables.forEach((connectedSortable) => {
-            let sortable = new Sortable(connectedSortable, {
-                group: "shared",
-                handle: ".card-header",
-            });
-        });
-
-        const cardHeaders = document.querySelectorAll(
-            ".connectedSortable .card-header",
-        );
-        cardHeaders.forEach((cardHeader) => {
-            cardHeader.style.cursor = "move";
-        });'
+    )->appendFile(
+        $this->basePath('js/dashboard.js')
     )->appendFile(
         'https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js',
         '',
@@ -155,6 +141,28 @@ $this->inlineScript()
     <?=$this->headLink()?>
 </head>
 <body class="<?=$this->bodyClass();?>">
+<!-- create list modal -->
+<div id="create-list-modal" class="modal fade" tabindex="-1" aria-labelledby="createListModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="loginModalLabel">New List</h1>
+      </div>
+      <div class="modal-body">
+          <form id="list-form" action="<?=$this->url('contact.create.list')?>" method="post">
+              <div class="input-group mb-3">
+                <input name="list_name" type="text" class="form-control" placeholder="List Name">
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="create-list-modal-submit" type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end create-list modal -->
 <div class="app-wrapper"> <!--begin::Header-->
         <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
@@ -225,49 +233,58 @@ $this->inlineScript()
                         </div>
                     </li> <!--end::Notifications Dropdown Menu--> <!--begin::Fullscreen Toggle-->
                     <li class="nav-item"> <a class="nav-link" href="#" data-lte-toggle="fullscreen"> <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i> <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i> </a> </li> <!--end::Fullscreen Toggle--> <!--begin::User Menu Dropdown-->
-                    <li class="nav-item dropdown user-menu"> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="<?=$this->basePath('assets/img/user2-160x160.jpg')?>" class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">Alexander Pierce</span> </a>
+                    <li class="nav-item dropdown user-menu">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img src="<?=$this->basePath('assets/img/user2-160x160.jpg')?>" class="user-image rounded-circle shadow" alt="User Image">
+                            <span class="d-none d-md-inline"><?=$this->user['details']['first_name'] . ' ' . $this->user['details']['last_name'];?></span>
+                        </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <!--begin::User Image-->
                             <li class="user-header text-bg-primary"> <img src="<?=$this->basePath('assets/img/user2-160x160.jpg')?>" class="rounded-circle shadow" alt="User Image">
                                 <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2023</small>
+                                    <?=$this->user['details']['first_name'] . ' ' . $this->user['details']['last_name'];?>
+                                    <small>Member since <?=$this->user['details']['created_at']?></small>
                                 </p>
-                            </li> <!--end::User Image--> <!--begin::Menu Body-->
-                            <li class="user-body"> <!--begin::Row-->
+                            </li>
+                            <!--end::User Image-->
+                            <!--begin::Menu Body-->
+                            <li class="user-body">
+                                <!--begin::Row-->
                                 <div class="row">
-                                    <div class="col-4 text-center"> <a href="#">Followers</a> </div>
-                                    <div class="col-4 text-center"> <a href="#">Sales</a> </div>
-                                    <div class="col-4 text-center"> <a href="#">Friends</a> </div>
-                                </div> <!--end::Row-->
-                            </li> <!--end::Menu Body--> <!--begin::Menu Footer-->
-                            <li class="user-footer"> <a href="#" class="btn btn-default btn-flat">Profile</a> <a href="#" class="btn btn-default btn-flat float-end">Sign out</a> </li> <!--end::Menu Footer-->
+                                    <div class="col-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </div>
+                                <!--end::Row-->
+                            </li>
+                            <!--end::Menu Body-->
+                            <!--begin::Menu Footer-->
+                            <li class="user-footer">
+                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="<?=$this->url('logout')?>" class="btn btn-default btn-flat float-end">Sign out</a>
+                            </li>
+                            <!--end::Menu Footer-->
                         </ul>
                     </li> <!--end::User Menu Dropdown-->
                 </ul> <!--end::End Navbar Links-->
             </div> <!--end::Container-->
         </nav> <!--end::Header--> <!--begin::Sidebar-->
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
-            <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="./index.html" class="brand-link"> <!--begin::Brand Image--> <img src="<?=$this->basePath('assets/img/AdminLTELogo.png')?>" alt="AdminLTE Logo" class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span class="brand-text fw-light">AdminLTE 4</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
+            <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="<?=$this->url('home');?>" class="brand-link"> <!--begin::Brand Image--> <img src="<?=$this->basePath('assets/img/AdminLTELogo.png')?>" alt="AdminLTE Logo" class="brand-image opacity-75 shadow"> <!--end::Brand Image--> <!--begin::Brand Text--> <span class="brand-text fw-light">HOP Project</span> <!--end::Brand Text--> </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
             <div class="sidebar-wrapper">
                 <nav class="mt-2"> <!--begin::Sidebar Menu-->
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open"> <a href="#" class="nav-link active"> <i class="nav-icon bi bi-speedometer"></i>
                                 <p>
-                                    Dashboard
+                                    Contact Manager
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item"> <a href="./index.html" class="nav-link active"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v1</p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./index2.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v2</p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./index3.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v3</p>
-                                    </a> </li>
-                            </ul>
                         </li>
                         <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
                                 <p>
@@ -284,36 +301,6 @@ $this->inlineScript()
                                     </a> </li>
                                 <li class="nav-item"> <a href="./widgets/cards.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                         <p>Cards</p>
-                                    </a> </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-clipboard-fill"></i>
-                                <p>
-                                    Layout Options
-                                    <span class="nav-badge badge text-bg-secondary me-3">6</span> <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item"> <a href="./layout/unfixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Default Sidebar</p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./layout/fixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Fixed Sidebar</p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./layout/fixed-complete.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Fixed Complete</p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./layout/sidebar-mini.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Sidebar Mini</p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./layout/collapsed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Sidebar Mini <small>+ Collapsed</small></p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./layout/logo-switch.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Sidebar Mini <small>+ Logo Switch</small></p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="./layout/layout-rtl.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Layout RTL</p>
                                     </a> </li>
                             </ul>
                         </li>
@@ -448,46 +435,6 @@ $this->inlineScript()
                         <li class="nav-item"> <a href="./docs/license.html" class="nav-link"> <i class="nav-icon bi bi-patch-check-fill"></i>
                                 <p>License</p>
                             </a> </li>
-                        <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>Level 1</p>
-                            </a> </li>
-                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>
-                                    Level 1
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Level 2</p>
-                                    </a> </li>
-                                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>
-                                            Level 2
-                                            <i class="nav-arrow bi bi-chevron-right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-record-circle-fill"></i>
-                                                <p>Level 3</p>
-                                            </a> </li>
-                                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-record-circle-fill"></i>
-                                                <p>Level 3</p>
-                                            </a> </li>
-                                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-record-circle-fill"></i>
-                                                <p>Level 3</p>
-                                            </a> </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                        <p>Level 2</p>
-                                    </a> </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>Level 1</p>
-                            </a> </li>
                         <li class="nav-header">LABELS</li>
                         <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-circle text-danger"></i>
                                 <p class="text">Important</p>
@@ -514,6 +461,7 @@ $this->inlineScript()
             <!--end::Copyright-->
         </footer> <!--end::Footer-->
     </div> <!--end::App Wrapper--> <!--begin::Script--> <!--begin::Third Party Plugin(OverlayScrollbars)-->
+
     <?=$this->inlineScript()?>
 </body>
 </html>

@@ -4,53 +4,45 @@ declare(strict_types=1);
 
 namespace App\UserRepository;
 
+use ArrayObject;
 use Axleus\Db;
-use Cm\Storage\PrimaryKey;
-use Cm\Storage\Schema;
-use Laminas\Db\RowGateway\RowGateway;
 
-final class UserEntity implements Db\EntityInterface
+final class UserEntity extends ArrayObject implements Db\EntityInterface
 {
     use Db\EntityTrait;
 
     public function __construct(
-        private ?int $id = null,
-        private ?string $email = null,
-        #[\SensitiveParameter]
-        private ?string $password = null
     ) {
-        // parent::__construct(PrimaryKey::User->value, Schema::User->value, )
+        parent::__construct([], self::ARRAY_AS_PROPS);
     }
-
-    public function getArrayCopy() { }
 
     public function setId(int $id): void
     {
-        $this->id = $id;
+        $this->offsetSet('id', $id);
     }
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->offsetGet('id');
     }
 
     public function setEmail(string $email): void
     {
-        $this->email = $email;
+        $this->offsetSet('email', $email);
     }
 
     public function getEmail(): string
     {
-        return $this->email;
+        return $this->offsetGet('email');
     }
 
     public function setPassword(string $password): void
     {
-        $this->password = $password;
+        $this->offsetSet('password', $password);
     }
 
     public function getPassword(): ?string
     {
-        return $this->password;
+        return $this->offsetGet('password');
     }
 }

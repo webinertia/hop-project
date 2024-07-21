@@ -47,6 +47,8 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
+                Repository\ContactRepository::class => Repository\ContactRepositoryFactory::class,
+                Repository\ListRepository::class    => Repository\ListRepositoryFactory::class,
             ],
         ];
     }
@@ -54,11 +56,12 @@ class ConfigProvider
     /**
      * Returns the templates configuration
      */
-    public function getTemplates() : array
+    public function getTemplates(): array
     {
         return [
             'paths' => [
-                'contact-manager'    => [__DIR__ . '/../templates/'],
+                'contact-manager' => [__DIR__ . '/../templates/'],
+                'partial'         => [__DIR__ . '/../templates/partial/'],
             ],
         ];
     }
