@@ -62,6 +62,7 @@ class ConfigProvider
                 Handler\LogoutHandler::class            => Handler\LogoutHandlerFactory::class,
                 Middleware\AjaxRequestMiddleware::class => Middleware\AjaxRequestMiddlewareFactory::class,
                 Middleware\IdentityMiddleware::class    => Middleware\IdentityMiddlewareFactory::class,
+                Middleware\TemplateMiddleware::class    => Middleware\TemplateMiddlewareFactory::class,
                 UserRepository\TableGateway::class      => UserRepository\TableGatewayFactory::class,
             ],
         ];
