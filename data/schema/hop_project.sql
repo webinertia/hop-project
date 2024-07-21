@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 21, 2024 at 07:52 AM
+-- Generation Time: Jul 21, 2024 at 09:13 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.2.0
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `lists` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `list_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `lists`
@@ -72,7 +72,10 @@ CREATE TABLE IF NOT EXISTS `lists` (
 INSERT INTO `lists` (`id`, `list_name`) VALUES
 (1, 'SimpleMachines'),
 (2, 'Webinertia'),
-(3, 'Mezzio');
+(3, 'Mezzio'),
+(35, 'SpaceX'),
+(36, 'Tesla'),
+(38, 'GE');
 
 -- --------------------------------------------------------
 

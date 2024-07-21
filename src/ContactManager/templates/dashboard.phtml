@@ -25,29 +25,53 @@
             </div><!--end::Col-->
         </div><!--end::Row-->
         <!--begin::Row-->
-        <div class="row justify-content-around"> <!-- Start col -->
+        <div id="list-board" class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3"> <!-- Start col -->
             <?php
             if (isset($this->list) && count($this->list) > 0):
+                $contactCount = 0;
                 foreach ($this->list as $list):
             ?>
-                <div class="col-lg-3 text-bg-secondary connectedSortable">
-                    <span><?=$list['list_name']?></span>
-                    <?php
-                    foreach ($this->contacts as $contact):
-                        if ($contact['list_name'] === $list['list_name']):
-                    ?>
+                <div class="col connectedSortable">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h3 class="card-title"><?=$contact['first_name']?></h3>
+                            <h2 class="card-title"><?=$list['list_name']?></h2>
+                            <div class="card-tools">
+                                <span title="X Current Contacts" class="badge text-bg-primary"><?=$contactCount?></span>
+                                <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+                                    <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                                    <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm">
+                                    <span>New Contact</span>
+                                </button>
+                            </div>
                         </div>
                         <div class="card-body">
-                            <div id="revenue-chart"></div>
+                            <div class="connectedSortable">
+                                <?php
+                                foreach ($this->contacts as $contact):
+                                    if ($contact['list_name'] === $list['list_name']):
+                                ?>
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h3 class="card-title"><?=$contact['first_name'] . ' ' . $contact['last_name']?></h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="revenue-chart"></div>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Email: <?=$contact['email']?></li>
+                                            <li class="list-group-item">A second item</li>
+                                            <li class="list-group-item">A third item</li>
+                                        </ul>
+                                    </div> <!-- /.card -->
+                                <?php
+                                    endif;
+                                endforeach;
+                                ?>
+                            </div>
                         </div>
-                    </div> <!-- /.card -->
-                    <?php
-                        endif;
-                    endforeach;
-                    ?>
+                    </div>
                 </div>
             <?php
                 endforeach;

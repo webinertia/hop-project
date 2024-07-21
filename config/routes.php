@@ -60,7 +60,10 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     );
     $app->post(
         '/create/list',
-        ContactManager\Handler\CreateListHandler::class,
+        [
+            BodyParamsMiddleware::class,
+            ContactManager\Handler\CreateListHandler::class,
+        ],
         'contact.create.list'
     );
     $app->route(// This route acts as the login API endpoint

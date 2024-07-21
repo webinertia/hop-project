@@ -14,7 +14,7 @@ final class ContactRepository extends AbstractRepository
     {
         /** @var Select */
         $select = new Select($this->gateway->getTable());
-        $select->columns(['id', 'user_id', 'first_name', 'list_id']);
+        //$select->columns(['id', 'user_id', 'first_name', 'list_id']);
         $where = new Where();
         $where->equalTo('user_id', $userId);
         $select->join(
