@@ -72,8 +72,10 @@
         postList(request);
     });
 
-    async function postContact(request, updateTarget) {
 
+
+    async function postContact(request, targetId) {
+        let updateTarget = document.querySelector('#list_' + targetId + ' .card-body .connectedSortable');
         try {
             const response = await fetch(request)
             .then(response => response.text())
@@ -89,27 +91,31 @@
         }
     }
 
-    function handleNewContact(updateTarget) {
-        contactSubmit.addEventListener('click', function(e) {
-            let action   = contactForm.getAttribute('action');
-            let formData = new FormData(contactForm);
-            const request = new Request(action, {
-                method: "post",
-                headers: {
-                    "X-Requested-With": "XMLHttpRequest"
-                },
-                body: formData,
-            });
-            postContact(request, updateTarget);
+    contactSubmit.addEventListener('click', function(e) {
+        let action    = contactForm.getAttribute('action');
+        let formData  = new FormData(contactForm);
+        const request = new Request(action, {
+            method: "post",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            body: formData,
         });
-    }
+        console.log("formData", formData);
+        postContact(request, formData.get('list_id'));
+    });
 
-    createContactButtons.forEach(el => el.addEventListener('click', event => {
-        // el.dataset-cmlistId
-        let updateTarget = document.querySelector('#list_' + el.dataset.cmlistId + ' .card-body .connectedSortable');
-        document.getElementById('contact-list-id').value = el.dataset.cmlistId;
+    listBoard.addEventListener('click', event => {
+        console.log("list-board event: ", event.target.parentElement);
+        const buttonCheck = event.target.parentElement.nodeName === 'BUTTON';
+        console.log("listBoardListener: before check");
+        if (!buttonCheck) {
+            return;
+        }
+        console.log("listBoardListener: after check");
         contactModal.toggle();
-        //console.log("updateTarget: ", updateTarget);
-        handleNewContact(updateTarget);
-    }));
+        let targetButton = event.target.parentElement;
+        document.getElementById('contact-list-id').value = targetButton.dataset.cmlistId;
+    });
+
 })();
