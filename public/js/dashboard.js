@@ -72,8 +72,6 @@
         postList(request);
     });
 
-
-
     async function postContact(request, targetId) {
         let updateTarget = document.querySelector('#list_' + targetId + ' .card-body .connectedSortable');
         try {

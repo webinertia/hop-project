@@ -25,7 +25,6 @@ class CreateListHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $requestBody = $request->getParsedBody();
-
         try {
             if (isset($requestBody['list_name'])) {
                 $list = $this->listRepository->save($requestBody);
