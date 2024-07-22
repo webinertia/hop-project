@@ -163,6 +163,35 @@ $this->inlineScript()
   </div>
 </div>
 <!-- end create-list modal -->
+<!-- create contact modal -->
+<div id="create-contact-modal" class="modal fade" tabindex="-1" aria-labelledby="createContactModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createContactModalLabel">New Contact</h1>
+      </div>
+      <div class="modal-body">
+          <form id="create-contact-form" action="<?=$this->url('contact.create.contact')?>" method="post">
+              <input id="contact-list-id" name="id" type="hidden">
+              <div class="input-group mb-3">
+                <input name="first_name" type="text" class="form-control" placeholder="First Name">
+              </div>
+              <div class="input-group mb-3">
+                <input name="last_name" type="text" class="form-control" placeholder="Last Name">
+              </div>
+              <div class="input-group mb-3">
+                <input name="email" type="text" class="form-control" placeholder="Email">
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="create-contact-modal-submit" type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end create-contact modal -->
 <div class="app-wrapper"> <!--begin::Header-->
         <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
