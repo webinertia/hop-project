@@ -31,7 +31,7 @@
                 $contactCount = 0;
                 foreach ($this->list as $list):
             ?>
-                <div class="col connectedSortable">
+                <div id="list_<?=$list['id']?>" class="col">
                     <div class="card mb-4">
                         <div class="card-header">
                             <h2 class="card-title"><?=$list['list_name']?></h2>
@@ -41,7 +41,7 @@
                                     <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
                                     <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
                                 </button>
-                                <button type="button" class="btn btn-primary btn-sm">
+                                <button type="button" role="button" data-cmlist-id="<?=$list['id']?>" class="create-contact-button btn btn-primary btn-sm">
                                     <span>New Contact</span>
                                 </button>
                             </div>
@@ -61,8 +61,6 @@
                                         </div>
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item">Email: <?=$contact['email']?></li>
-                                            <li class="list-group-item">A second item</li>
-                                            <li class="list-group-item">A third item</li>
                                         </ul>
                                     </div> <!-- /.card -->
                                 <?php

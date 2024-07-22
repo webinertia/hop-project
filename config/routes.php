@@ -55,7 +55,10 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     );
     $app->post(
         '/create/contact',
-        ContactManager\Handler\CreateContactHandler::class,
+        [
+            BodyParamsMiddleware::class,
+            ContactManager\Handler\CreateContactHandler::class,
+        ],
         'contact.create.contact'
     );
     $app->post(
