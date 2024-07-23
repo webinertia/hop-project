@@ -12,7 +12,8 @@ class TemplateMiddlewareFactory
     public function __invoke(ContainerInterface $container): TemplateMiddleware
     {
         return new TemplateMiddleware(
-            $container->get(TemplateRendererInterface::class)
+            $container->get(TemplateRendererInterface::class),
+            $container->get('config')
         );
     }
 }

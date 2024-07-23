@@ -23,6 +23,7 @@ class TemplateMiddleware implements MiddlewareInterface
 {
     public function __construct(
         private TemplateRendererInterface $template,
+        private array $config,
     ) {
     }
 
@@ -45,6 +46,12 @@ class TemplateMiddleware implements MiddlewareInterface
             TemplateRendererInterface::TEMPLATE_ALL,
             'currentRoute',
             $routeName
+        );
+
+        $this->template->addDefaultParam(
+            TemplateRendererInterface::TEMPLATE_ALL,
+            'config',
+            $this->config
         );
 
         return $handler->handle($request);
