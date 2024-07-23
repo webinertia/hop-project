@@ -104,16 +104,15 @@
     });
 
     listBoard.addEventListener('click', event => {
-        console.log("list-board event: ", event.target.parentElement);
-        const buttonCheck = event.target.parentElement.nodeName === 'BUTTON';
+        console.log("list-board event: ", event.target);
+        const buttonCheck = event.target.nodeName === 'BUTTON';
         console.log("listBoardListener: before check");
-        if (!buttonCheck) {
+        if (!buttonCheck || event.target.dataset.cmlistId === 'undefined') {
             return;
         }
         console.log("listBoardListener: after check");
         contactModal.toggle();
-        let targetButton = event.target.parentElement;
-        document.getElementById('contact-list-id').value = targetButton.dataset.cmlistId;
+        document.getElementById('contact-list-id').value = event.target.dataset.cmlistId;
     });
 
 })();

@@ -14,6 +14,15 @@ require 'vendor/autoload.php';
  * Self-called anonymous function that creates its own scope and keeps the global namespace clean.
  */
 (function () {
+
+    if (file_exists('config/development.config.php') && class_exists(\Tracy\Debugger::class)) {
+        $debugConfig = require 'config/development.config.php';
+        if ($debugConfig['debug'] ) {
+            \Tracy\Debugger::enable();
+            \Tracy\Debugger::timer('total-runtime');
+        }
+    }
+
     /** @var \Psr\Container\ContainerInterface $container */
     $container = require 'config/container.php';
 
