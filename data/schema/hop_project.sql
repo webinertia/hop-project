@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 21, 2024 at 09:13 PM
+-- Generation Time: Jul 29, 2024 at 05:34 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.2.0
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `contacts`
@@ -50,7 +50,11 @@ INSERT INTO `contacts` (`id`, `user_id`, `first_name`, `last_name`, `email`, `em
 (1, 1, 'Oldies', 'Mann', 'oldiesman@simplemachines.org', '2024-07-21 05:12:49', 0, 1, '2024-07-21 05:12:49', '2024-07-21 05:12:49'),
 (2, 1, 'Kindred', '', 'kindred@simplemachines.org', '2024-07-21 05:12:49', 0, 1, '2024-07-21 05:12:49', '2024-07-21 05:12:49'),
 (3, 1, 'Jeff', 'Lewis', 'jlewis@gmail.com', '2024-07-21 06:11:03', 0, 2, '2024-07-21 06:11:03', '2024-07-21 06:11:03'),
-(4, 1, 'Mathew', 'O\'phinney', 'mwop@mezzio.com', '2024-07-21 06:12:03', 0, 3, '2024-07-21 06:12:03', '2024-07-21 06:12:03');
+(4, 1, 'Mathew', 'O\'phinney', 'mwop@mezzio.com', '2024-07-21 06:12:03', 0, 3, '2024-07-21 06:12:03', '2024-07-21 06:12:03'),
+(5, 1, 'Linus', 'Torvalds', 'linus@linux.io', '0000-00-00 00:00:00', 0, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 1, 'Linus', 'Torvalds', 'linus@linux.io', '0000-00-00 00:00:00', 0, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 1, 'Tracy', 'Debug', 'tracy@tracy.io', '0000-00-00 00:00:00', 0, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 1, 'Joey', 'Smith', 'jsmith@webinertia.net', '0000-00-00 00:00:00', 0, 38, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -103,6 +107,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `first_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `last_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(320) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `role_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `email_verified_at` timestamp NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `remember_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -115,9 +120,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `team_id`, `first_name`, `last_name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 0, 'Joey', 'Smith', 'jsmith@webinertia.net', '2024-07-18 22:05:11', '$2y$10$buYOVRO7oURp1Ej3/mNBK.9c.Yo.LH49Iba2Q1l7F3Lmr6dRzAACq', '', '2024-07-18 22:05:11', '2024-07-18 22:05:11'),
-(2, 0, 'Jeff', 'Lewis', 'jlewis.android@gmail.com', '2024-07-19 07:15:42', '$2y$10$Yy99D0eVs8JXSwEeY9Bd3u94aZXgv2.2kZFWjXkyQHEexDwMm4m6W', '', '2024-07-19 07:15:42', '2024-07-19 07:15:42');
+INSERT INTO `users` (`id`, `team_id`, `first_name`, `last_name`, `email`, `role_id`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 0, 'Joey', 'Smith', 'jsmith@webinertia.net', 'Administrator', '2024-07-18 22:05:11', '$2y$10$buYOVRO7oURp1Ej3/mNBK.9c.Yo.LH49Iba2Q1l7F3Lmr6dRzAACq', '', '2024-07-18 22:05:11', '2024-07-18 22:05:11'),
+(2, 0, 'Jeff', 'Lewis', 'jlewis.android@gmail.com', 'Administrator', '2024-07-19 07:15:42', '$2y$10$Yy99D0eVs8JXSwEeY9Bd3u94aZXgv2.2kZFWjXkyQHEexDwMm4m6W', '', '2024-07-19 07:15:42', '2024-07-19 07:15:42');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
