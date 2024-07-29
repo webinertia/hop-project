@@ -50,6 +50,7 @@ $aggregator = new ConfigAggregator([
     // Default App module config
     App\ConfigProvider::class,
     \ContactManager\ConfigProvider::class,
+    \UserManager\ConfigProvider::class,
         /**
      * If DevTools is present load the provider
      */

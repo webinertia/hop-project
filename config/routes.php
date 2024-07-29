@@ -69,29 +69,5 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         ],
         'contact.create.list'
     );
-    $app->route(// This route acts as the login API endpoint
-        '/login',
-        [
-            BodyParamsMiddleware::class,
-            App\Handler\LoginHandler::class
-        ],
-        [
-            'GET',
-            'POST',
-        ],
-        'login'
-    );
-    $app->route(
-        '/logout',
-        [
-            BodyParamsMiddleware::class,
-            AuthenticationMiddleware::class,
-            App\Handler\LogoutHandler::class
-        ],
-        [
-            'GET',
-        ],
-        'logout'
-    );
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
 };

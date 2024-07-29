@@ -17,7 +17,7 @@ require 'vendor/autoload.php';
 
     if (file_exists('config/development.config.php') && class_exists(\Tracy\Debugger::class)) {
         $debugConfig = require 'config/development.config.php';
-        if ($debugConfig['debug'] ) {
+        if ($debugConfig['debug']) {
             \Tracy\Debugger::enable();
             \Tracy\Debugger::timer('total-runtime');
         }
@@ -36,4 +36,5 @@ require 'vendor/autoload.php';
     (require 'config/routes.php')($app, $factory, $container);
 
     $app->run();
+
 })();

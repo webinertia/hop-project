@@ -76,7 +76,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/App/src/",
-            "ContactManager\\": "src/ContactManager/src/"
+            "ContactManager\\": "src/ContactManager/src/",
+            "UserManager\\": "src/user-manager/src/"
         }
     },
     "autoload-dev": {

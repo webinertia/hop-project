@@ -26,7 +26,7 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            //'authentication'     => $this->getAuthenticationConfig(),
+            'authentication' => ['redirect' => '/contacts/dashboard'],
             'dependencies'       => $this->getDependencies(),
             'templates'          => $this->getTemplates(),
             // 'view_helper_config' => $this->getViewHelperConfig(),
@@ -34,36 +34,19 @@ class ConfigProvider
         ];
     }
 
-    // public function getAuthenticationConfig(): array
-    // {
-    //     return [
-    //         'redirect' => '/landing',
-    //         'username' => 'username',
-    //         'password' => 'hash',
-    //     ];
-    // }
-
     /**
      * Returns the container dependencies
      */
     public function getDependencies(): array
     {
         return [
-            'aliases' => [
-                AuthenticationInterface::class => PhpSession::class,
-                UserRepositoryInterface::class => UserRepository\TableGateway::class,
-            ],
             'invokables' => [
                 Handler\PingHandler::class => Handler\PingHandler::class,
             ],
             'factories'  => [
                 Handler\HomePageHandler::class          => Handler\HomePageHandlerFactory::class,
-                Handler\LoginHandler::class             => Handler\LoginHandlerFactory::class,
-                Handler\LogoutHandler::class            => Handler\LogoutHandlerFactory::class,
                 Middleware\AjaxRequestMiddleware::class => Middleware\AjaxRequestMiddlewareFactory::class,
-                Middleware\IdentityMiddleware::class    => Middleware\IdentityMiddlewareFactory::class,
                 Middleware\TemplateMiddleware::class    => Middleware\TemplateMiddlewareFactory::class,
-                UserRepository\TableGateway::class      => UserRepository\TableGatewayFactory::class,
             ],
         ];
     }
