@@ -32,7 +32,7 @@ class ConfigProvider
     public function getAuthenticationConfig(): array
     {
         return [
-            'redirect' => '/contacts/dashboard',
+            //'redirect' => '/contacts/dashboard',
             'username' => 'email',
             'password' => 'password',
         ];
@@ -47,6 +47,10 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
+                Handler\CreateContactHandler::class => Handler\CreateContactHandlerFactory::class,
+                Handler\CreateListHandler::class    => Handler\CreateListHandlerFactory::class,
+                Handler\DashboardHandler::class     => Handler\DashboardHandlerFactory::class,
+                Handler\LandingHandler::class       => Handler\LandingHandlerFactory::class,
                 Repository\ContactRepository::class => Repository\ContactRepositoryFactory::class,
                 Repository\ListRepository::class    => Repository\ListRepositoryFactory::class,
             ],
@@ -60,8 +64,8 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'contact-manager' => [__DIR__ . '/../templates/'],
-                'partial'         => [__DIR__ . '/../templates/partial/'],
+                'contact-manager'          => [__DIR__ . '/../templates/contact-manager'],
+                'contact-manager-partials' => [__DIR__ . '/../templates/partials'],
             ],
         ];
     }

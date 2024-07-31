@@ -40,7 +40,7 @@ $this->headLink()
             'crossorigin' => 'anonymous',
         ]
     )->appendStylesheet(
-        $this->basePath('css/adminlte.css'), // local styles
+        $this->basePath('dashboard/css/adminlte.css'), // local styles
         'screen'
     )->appendStylesheet(
         'https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css',
@@ -83,52 +83,7 @@ $this->inlineScript()
             'crossorigin' => 'anonymous',
         ],
     )->appendFile(
-        $this->basePath('js/adminlte.js')
-    )->appendScript(
-        'const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
-        const Default = {
-            scrollbarTheme: "os-theme-light",
-            scrollbarAutoHide: "leave",
-            scrollbarClickScroll: true,
-        };
-        document.addEventListener("DOMContentLoaded", function() {
-            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-            if (
-                sidebarWrapper &&
-                typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined"
-            ) {
-                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-                    scrollbars: {
-                        theme: Default.scrollbarTheme,
-                        autoHide: Default.scrollbarAutoHide,
-                        clickScroll: Default.scrollbarClickScroll,
-                    },
-                });
-            }
-        });'
-    )->appendFile(
-        'https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js',
-        '',
-        [
-            'integrity'   => 'sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ=',
-            'crossorigin' => 'anonymous',
-        ],
-    )->appendScript(
-        '        const connectedSortables =
-            document.querySelectorAll(".connectedSortable");
-        connectedSortables.forEach((connectedSortable) => {
-            let sortable = new Sortable(connectedSortable, {
-                group: "shared",
-                handle: ".card-header",
-            });
-        });
-
-        const cardHeaders = document.querySelectorAll(
-            ".connectedSortable .card-header",
-        );
-        cardHeaders.forEach((cardHeader) => {
-            cardHeader.style.cursor = "move";
-        });'
+        $this->basePath('dashboard/js/adminlte.js')
     )->appendFile(
         'https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js',
         '',

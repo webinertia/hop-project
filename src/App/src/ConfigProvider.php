@@ -26,7 +26,7 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'authentication' => ['redirect' => '/contacts/dashboard'],
+            'authentication' => ['redirect' => '/admin'],
             'dependencies'       => $this->getDependencies(),
             'templates'          => $this->getTemplates(),
             // 'view_helper_config' => $this->getViewHelperConfig(),
@@ -44,6 +44,7 @@ class ConfigProvider
                 Handler\PingHandler::class => Handler\PingHandler::class,
             ],
             'factories'  => [
+                Handler\DashboardHandler::class         => Handler\DashboardHandlerFactory::class,
                 Handler\HomePageHandler::class          => Handler\HomePageHandlerFactory::class,
                 Middleware\AjaxRequestMiddleware::class => Middleware\AjaxRequestMiddlewareFactory::class,
                 Middleware\TemplateMiddleware::class    => Middleware\TemplateMiddlewareFactory::class,

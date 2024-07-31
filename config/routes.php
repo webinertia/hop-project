@@ -40,7 +40,17 @@ use Psr\Container\ContainerInterface;
  */
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
-    $app->get('/', ContactManager\Handler\LandingHandler::class, 'home'); // load custom layout for this handler
+    $app->get('/', App\Handler\HomePageHandler::class, 'home'); // load custom layout for this handler
+    $app->route(
+        '/admin',
+        [
+            AuthenticationMiddleware::class,
+            BodyParamsMiddleware::class,
+            App\Handler\DashboardHandler::class,
+        ],
+        null,
+        'admin'
+    );
     $app->route(
         '/contacts/dashboard',
         [

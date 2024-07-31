@@ -34,7 +34,7 @@ class TemplateMiddleware implements MiddlewareInterface
 
         /** @var LazySession */
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        $user    = $session->get(UserInterface::class);
+        $user    = $request->getAttribute(UserInterface::class);
         // If we have a user then assign it to all templates, this does not assign it to partials
         $this->template->addDefaultParam(
             TemplateRendererInterface::TEMPLATE_ALL,

@@ -6,6 +6,7 @@ use App\Middleware\AjaxRequestMiddleware;
 use App\Middleware\ContextMiddleware;
 
 use App\Middleware\TemplateMiddleware;
+use Htmx\Middleware\HtmxMiddleware;
 use Laminas\Stratigility\Middleware\ErrorHandler;
 use Mezzio\Application;
 use Mezzio\Handler\NotFoundHandler;
@@ -54,6 +55,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(SessionMiddleware::class);
     $app->pipe(IdentityMiddleware::class);
     $app->pipe(AjaxRequestMiddleware::class);
+    $app->pipe(HtmxMiddleware::class);
 
     // Register the routing middleware in the middleware pipeline.
     // This middleware registers the Mezzio\Router\RouteResult request attribute.

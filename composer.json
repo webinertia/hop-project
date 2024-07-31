@@ -77,6 +77,7 @@
         "psr-4": {
             "App\\": "src/App/src/",
             "ContactManager\\": "src/ContactManager/src/",
+            "Htmx\\": "src/htmx/src",
             "UserManager\\": "src/user-manager/src/"
         }
     },

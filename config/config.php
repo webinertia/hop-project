@@ -50,8 +50,9 @@ $aggregator = new ConfigAggregator([
     // Default App module config
     App\ConfigProvider::class,
     \ContactManager\ConfigProvider::class,
+    \Htmx\ConfigProvider::class,
     \UserManager\ConfigProvider::class,
-        /**
+    /**
      * If DevTools is present load the provider
      */
     class_exists(\Axleus\DevTools\ConfigProvider::class)

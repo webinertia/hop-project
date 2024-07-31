@@ -11,7 +11,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Template\TemplateRendererInterface;
-use PhpParser\Node\Stmt\TryCatch;
 
 class CreateListHandler implements RequestHandlerInterface
 {
@@ -29,7 +28,7 @@ class CreateListHandler implements RequestHandlerInterface
             if (isset($requestBody['list_name'])) {
                 $list = $this->listRepository->save($requestBody);
                 return new HtmlResponse(
-                    $this->renderer->render('partial::sortable-list', ['list' => $list->getArrayCopy()])
+                    $this->renderer->render('contact-manager-partials::sortable-list', ['list' => $list->getArrayCopy()])
                 );
             }
         } catch (\Throwable $th) {

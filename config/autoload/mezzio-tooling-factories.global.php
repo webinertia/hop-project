@@ -13,10 +13,6 @@ declare(strict_types=1);
 return [
     'dependencies' => [
         'factories' => [
-            ContactManager\Handler\CreateContactHandler::class => ContactManager\Handler\CreateContactHandlerFactory::class,
-            ContactManager\Handler\CreateListHandler::class => ContactManager\Handler\CreateListHandlerFactory::class,
-            ContactManager\Handler\DashboardHandler::class => ContactManager\Handler\DashboardHandlerFactory::class,
-            ContactManager\Handler\LandingHandler::class => ContactManager\Handler\LandingHandlerFactory::class,
         ],
     ],
 ];

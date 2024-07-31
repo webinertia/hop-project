@@ -30,7 +30,7 @@ class CreateContactHandler implements RequestHandlerInterface
                 $requestBody['user_id'] = $currentUser['id'];
                 $contact                = $this->contactRepository->save($requestBody);
                 return new HtmlResponse(
-                    $this->renderer->render('partial::sortable-contact', ['contact' => $contact->getArrayCopy()])
+                    $this->renderer->render('contact-manager-partials::sortable-contact', ['contact' => $contact->getArrayCopy()])
                 );
             }
         } catch (\Throwable $th) {
