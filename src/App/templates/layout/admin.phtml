@@ -212,26 +212,7 @@ $this->inlineScript()
 </head>
 <body class="<?=$this->bodyClass();?>">
 <!-- create list modal -->
-<div id="create-list-modal" class="modal fade" tabindex="-1" aria-labelledby="createListModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="loginModalLabel">New List</h1>
-      </div>
-      <div class="modal-body">
-          <form id="list-form" action="<?=$this->url('contact.create.list')?>" method="post">
-              <div class="input-group mb-3">
-                <input name="list_name" type="text" class="form-control" placeholder="List Name">
-              </div>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button id="create-list-modal-submit" type="button" class="btn btn-primary">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 <!-- end create-list modal -->
 <!-- create contact modal -->
 <div id="create-contact-modal" class="modal fade" tabindex="-1" aria-labelledby="createContactModalLabel" aria-hidden="true">
@@ -577,7 +558,15 @@ $this->inlineScript()
             <!--end::Copyright-->
         </footer> <!--end::Footer-->
     </div> <!--end::App Wrapper--> <!--begin::Script--> <!--begin::Third Party Plugin(OverlayScrollbars)-->
-
+    <div id="modal-target"
+        class="modal modal-blur fade"
+        style="display: none"
+        aria-hidden="false"
+        tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content"></div>
+        </div>
+    </div>
     <?=$this->inlineScript()?>
 </body>
 </html>

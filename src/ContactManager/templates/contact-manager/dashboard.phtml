@@ -21,7 +21,14 @@
         <div class="row">
             <!--begin::Col-->
             <div class="col-sm-1 col-1 mb-4">
-                <button id="create-list-modal-button" data-bs-toggle="modal" data-bs-target="create-list-modal" type="button" class="btn btn-primary btn-md">New List</button>
+                <button
+                    hx-get="<?=$this->url('contact.create.list')?>"
+                    hx-target="#modal-target"
+                    hx-trigger="click"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal-target"
+                    type="button"
+                    class="btn btn-primary btn-md">New List</button>
             </div><!--end::Col-->
         </div><!--end::Row-->
         <!--begin::Row-->

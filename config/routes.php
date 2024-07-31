@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Fig\Http\Message\RequestMethodInterface as Http;
 use Mezzio\Application;
 use Mezzio\Authentication\AuthenticationMiddleware;
 use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
@@ -58,8 +59,8 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
             ContactManager\Handler\DashboardHandler::class
         ],
         [
-            'GET',
-            'POST',
+            Http::METHOD_GET,
+            Http::METHOD_POST,
         ],
         'contacts.dashboard'
     );
@@ -71,12 +72,13 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         ],
         'contact.create.contact'
     );
-    $app->post(
+    $app->route(
         '/create/list',
         [
             BodyParamsMiddleware::class,
             ContactManager\Handler\CreateListHandler::class,
         ],
+        [Http::METHOD_GET, Http::METHOD_POST],
         'contact.create.list'
     );
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
