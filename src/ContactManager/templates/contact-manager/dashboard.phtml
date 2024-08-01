@@ -22,11 +22,8 @@
             <!--begin::Col-->
             <div class="col-sm-1 col-1 mb-4">
                 <button
-                    hx-get="<?=$this->url('contact.create.list')?>"
-                    hx-target="#modal-target"
-                    hx-trigger="click"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modal-target"
+                    hx-get="<?=$this->url('cm.create.list')?>"
+                    hx-target="#dialog"
                     type="button"
                     class="btn btn-primary btn-md">New List</button>
             </div><!--end::Col-->
@@ -38,7 +35,7 @@
                 $contactCount = 0;
                 foreach ($this->list as $list):
             ?>
-                <div id="list_<?=$list['id']?>" class="col">
+                <div id="list_<?=$list['id']?>">
                     <div class="card mb-4">
                         <div class="card-header">
                             <h2 class="card-title"><?=$list['list_name']?></h2>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ContactManager\Handler;
 
+use Axleus\Db\EntityInterface;
 use ContactManager\Repository\ListRepository;
 use Fig\Http\Message\RequestMethodInterface as Http;
 use Laminas\Diactoros\Response\EmptyResponse;
@@ -31,28 +32,32 @@ class CreateListHandler implements RequestHandlerInterface
             Http::METHOD_POST => $this->handlePost($request),
             default => new EmptyResponse(405),
         };
-        // $requestBody = $request->getParsedBody();
-        // try {
-        //     if (isset($requestBody['list_name'])) {
-        //         $list = $this->listRepository->save($requestBody);
-        //         return new HtmlResponse(
-        //             $this->renderer->render('contact-manager-partials::sortable-list', ['list' => $list->getArrayCopy()])
-        //         );
-        //     }
-        // } catch (\Throwable $th) {
-        //     return new JsonResponse(['success' => false], 500);
-        // }
     }
 
     private function handleGet(ServerRequestInterface $request): ResponseInterface
     {
         return new HtmlResponse(
-            $this->renderer->render('contact-manager-partials::new-list-modal')
+            $this->renderer->render('contact-manager-partials::create-list-modal')
         );
     }
 
     private function handlePost(ServerRequestInterface $request): ResponseInterface
     {
-        return new EmptyResponse();
+        $requestBody = $request->getParsedBody();
+        try {
+            if (isset($requestBody['list_name'])) {
+                $list = $this->listRepository->save($requestBody);
+                if (! $list instanceof EntityInterface) {
+                    // throw exception
+                }
+                return new HtmlResponse(
+                    $this->renderer->render('contact-manager-partials::sortable-list', ['list' => $list->getArrayCopy()]),
+                    200,
+                    ['HX-Success' => 'true']
+                );
+            }
+        } catch (\Throwable $th) {
+            return new HtmlResponse(['success' => false], 500);
+        }
     }
 }

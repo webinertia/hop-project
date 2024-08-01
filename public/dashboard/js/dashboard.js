@@ -18,7 +18,23 @@
                 handle: ".card-header",
             });
         }
-        // end sortables
-        //htmx.process(content);
     });
 })();
+
+const modal = new bootstrap.Modal(document.getElementById("modal"));
+htmx.on("htmx:afterSwap", (e) => {
+    if (e.detail.target.id == "dialog") {
+        modal.show();
+    }
+});
+htmx.on("htmx:beforeSwap", (e) => {
+    //console.log(e.detail.xhr.getResponseHeader('HX-Success'), "getheader from beforeSwap");
+    let targetHeader = e.detail.xhr.getResponseHeader('HX-Success');
+    //console.log(targetHeader, 'targetHeader');
+    //console.log(e.detail.target.id, 'e.detail.target.id');
+    if (targetHeader == "true") {
+        //console.info('check limiting to just dialog');
+        modal.hide();
+        //e.detail.shouldSwap = false;
+    }
+});

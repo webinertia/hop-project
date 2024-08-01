@@ -52,34 +52,6 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         null,
         'admin'
     );
-    $app->route(
-        '/contacts/dashboard',
-        [
-            BodyParamsMiddleware::class,
-            ContactManager\Handler\DashboardHandler::class
-        ],
-        [
-            Http::METHOD_GET,
-            Http::METHOD_POST,
-        ],
-        'contacts.dashboard'
-    );
-    $app->post(
-        '/create/contact',
-        [
-            BodyParamsMiddleware::class,
-            ContactManager\Handler\CreateContactHandler::class,
-        ],
-        'contact.create.contact'
-    );
-    $app->route(
-        '/create/list',
-        [
-            BodyParamsMiddleware::class,
-            ContactManager\Handler\CreateListHandler::class,
-        ],
-        [Http::METHOD_GET, Http::METHOD_POST],
-        'contact.create.list'
-    );
+
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
 };

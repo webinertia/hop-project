@@ -1,0 +1,18 @@
+<form
+    id="list-form"
+    class="modal-content"
+    hx-post="<?=$this->url('cm.create.list')?>"
+    hx-target="#list-board"
+    hx-swap="beforeend">
+
+    <div class="modal-header">
+        <h5 class="modal-tile">New List</h5>
+    </div>
+    <div class="modal-body">
+        <input name="list_name" type="text" class="form-control" placeholder="List Name">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button form="list-form" type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
