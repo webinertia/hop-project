@@ -34,7 +34,7 @@ class DashboardHandler implements RequestHandlerInterface
         $lists       = $this->listRepository->findAll()->toArray();
 
         return new HtmlResponse($this->renderer->render(
-            'contact-manager::dashboard',
+            'cm::dashboard',
             [
                 'list'     => $lists,
                 'contacts' => $contacts

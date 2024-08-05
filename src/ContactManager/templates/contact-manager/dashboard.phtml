@@ -22,7 +22,7 @@
             <!--begin::Col-->
             <div class="col-sm-1 col-1 mb-4">
                 <button
-                    hx-get="<?=$this->url('cm.create.list')?>"
+                    hx-get="<?=$this->url('cm.list')?>"
                     hx-target="#dialog"
                     type="button"
                     class="btn btn-primary btn-md">New List</button>
@@ -45,18 +45,21 @@
                                     <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
                                     <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
                                 </button>
-                                <button type="button" role="button" data-cmlist-id="<?=$list['id']?>" class="create-contact-button btn btn-primary btn-sm">
+                                <button
+                                    hx-get="<?=$this->url('cm.contact') . '/' . $list['id']?>"
+                                    hx-target="#dialog"
+                                    type="button" class="btn btn-primary btn-sm">
                                     New Contact
                                 </button>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="connectedSortable">
+                            <div class="connectedSortable" data-list-id="<?=$list['id']?>">
                                 <?php
                                 foreach ($this->contacts as $contact):
                                     if ($contact['list_name'] === $list['list_name']):
                                 ?>
-                                    <div class="card mb-4">
+                                    <div class="card mb-4" hx-post="<?=$this->url('cm.contact')?>">
                                         <div class="card-header">
                                             <h3 class="card-title"><?=$contact['first_name'] . ' ' . $contact['last_name']?></h3>
                                         </div>
@@ -83,8 +86,7 @@
     </div> <!--end::Container-->
 </div> <!--end::App Content-->
 
-<?=$this->inlineScript()->appendScript(
-'
+<script>
     htmx.onLoad(function(content) {
         var sortables     = content.querySelectorAll(".connectedSortable");
         const cardHeaders = content.querySelectorAll(".connectedSortable .card-header");
@@ -100,11 +102,17 @@
                     name: "shared",
                 },
                 handle: ".card-header",
+                onAdd: (evt) => {
+                    let addedItem = evt.item;
+                    console.log(evt.to, 'evt.to');
+                    console.log(evt.from, 'evt.from');
+
+                }
             });
         }
     });
 
-    const modal = new bootstrap.Modal(document.getElementById("modal"));
+    let modal = new bootstrap.Modal(document.getElementById("modal"));
     htmx.on("htmx:afterSwap", (e) => {
         if (e.detail.target.id == "dialog") {
             modal.show();
@@ -112,14 +120,13 @@
     });
 
     htmx.on("htmx:beforeSwap", (e) => {
-        //console.log(e.detail.xhr.getResponseHeader("HX-Success"), "getheader from beforeSwap");
         let targetHeader = e.detail.xhr.getResponseHeader("HX-Success");
-        //console.log(targetHeader, "targetHeader");
-        //console.log(e.detail.target.id, "e.detail.target.id");
         if (targetHeader == "true") {
-            //console.info("check limiting to just dialog");
             modal.hide();
-            //e.detail.shouldSwap = false;
         }
-    });'
-)?>
+    });
+
+    htmx.on("hidden.bs.modal", () => {
+        document.getElementById("dialog").innerHTML = "";
+    });
+</script>
