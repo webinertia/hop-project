@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace ContactManager\Form;
 
+use Fig\Http\Message\RequestMethodInterface as Http;
 use Laminas\Filter;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\Validator;
 use Laminas\Form;
+use Limatus\Form\HttpMethodTrait;
+use Limatus\FormInterface;
 
 use function strtolower;
 
-final class Contact extends Form\Form implements InputFilterProviderInterface
+final class Contact extends Form\Form implements FormInterface, InputFilterProviderInterface
 {
+    use HttpMethodTrait;
+
     protected $attributes = [];
     /**
-     * $options['fieldset'] must be false since the Authentication component expects username and passoword
-     * to be in the top level of the POST array
      * @param string $name
      * @param array $options
      * @return void
@@ -37,60 +40,22 @@ final class Contact extends Form\Form implements InputFilterProviderInterface
         $this->add([
             'name' => 'list_id',
             'type' => Form\Element\Hidden::class,
-            // 'attributes' => [
-            //     'class' => 'form-control custom-class',
-            //     //'placeholder' => 'User Name',
-            // ],
-            // 'options' => [
-            //     'label' => 'User Name',
-            //     'label_attributes'     => [
-            //         'class' => 'col-sm-2 col-form-label'
-            //     ],
-            //     'bootstrap_attributes' => [
-            //         'class' => 'input-group mb-3',
-            //     ],
-            //     'horizontal_attributes' => [
-            //         //'class' => 'col-lg-6',
-            //     ],
-            //     'help'            => 'Your email address.',
-            //     'help_attributes' => [
-            //         //'class' => 'form-text text-muted col-sm-10 offset-sm-2',
-            //     ],
-            // ],
         ]);
+        if ($this->httpMethod === Http::METHOD_PUT) { // only need this for updating a contact
             $this->add([
-                'name' => 'first_name',
-                'type' => Form\Element\Text::class,
-                'attributes' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'First Name',
-                ],
-                'options' => [
-                    //'label' => 'First Name',
-                    // 'label_attributes'     => [
-                    //     'class' => 'col-sm-2 col-form-label'
-                    // ],
-                    'bootstrap_attributes' => [
-                        'class' => 'input-group mb-3',
-                    ],
-                    'horizontal_attributes' => [
-                        //'class' => 'col-lg-6',
-                    ],
-                   //'help'            => 'Your email address.',
-                    // 'help_attributes' => [
-                    //     //'class' => 'form-text text-muted col-sm-10 offset-sm-2',
-                    // ],
-                ],
+                'name' => 'id',
+                'type' => Form\Element\Hidden::class,
             ]);
+        }
         $this->add([
-            'name' => 'last_name',
+            'name' => 'first_name',
             'type' => Form\Element\Text::class,
             'attributes' => [
                 'class' => 'form-control',
-                'placeholder' => 'Last Name',
+                'placeholder' => 'First Name',
             ],
             'options' => [
-                //'label' => 'First Name',
+                // 'label' => 'First Name',
                 // 'label_attributes'     => [
                 //     'class' => 'col-sm-2 col-form-label'
                 // ],
@@ -100,7 +65,31 @@ final class Contact extends Form\Form implements InputFilterProviderInterface
                 'horizontal_attributes' => [
                     //'class' => 'col-lg-6',
                 ],
-               //'help'            => 'Your email address.',
+                // 'help'            => 'Your email address.',
+                // 'help_attributes' => [
+                //     //'class' => 'form-text text-muted col-sm-10 offset-sm-2',
+                // ],
+            ],
+        ]);
+        $this->add([
+            'name' => 'last_name',
+            'type' => Form\Element\Text::class,
+            'attributes' => [
+                'class' => 'form-control',
+                'placeholder' => 'Last Name',
+            ],
+            'options' => [
+                // 'label' => 'First Name',
+                // 'label_attributes'     => [
+                //     'class' => 'col-sm-2 col-form-label'
+                // ],
+                'bootstrap_attributes' => [
+                    'class' => 'input-group mb-3',
+                ],
+                'horizontal_attributes' => [
+                    //'class' => 'col-lg-6',
+                ],
+                // 'help'            => 'Your email address.',
                 // 'help_attributes' => [
                 //     //'class' => 'form-text text-muted col-sm-10 offset-sm-2',
                 // ],
@@ -114,7 +103,7 @@ final class Contact extends Form\Form implements InputFilterProviderInterface
                 'placeholder' => 'Email',
             ],
             'options' => [
-                //'label' => 'First Name',
+                // 'label' => 'First Name',
                 // 'label_attributes'     => [
                 //     'class' => 'col-sm-2 col-form-label'
                 // ],
@@ -124,7 +113,7 @@ final class Contact extends Form\Form implements InputFilterProviderInterface
                 'horizontal_attributes' => [
                     //'class' => 'col-lg-6',
                 ],
-               //'help'            => 'Your email address.',
+                // 'help'            => 'Your email address.',
                 // 'help_attributes' => [
                 //     //'class' => 'form-text text-muted col-sm-10 offset-sm-2',
                 // ],
@@ -153,7 +142,54 @@ final class Contact extends Form\Form implements InputFilterProviderInterface
                     ],
                 ],
             ],
+            'first_name' => [
+                'required' => true,
+                'filters'  => [
+                    ['name' => Filter\StripTags::class],
+                    ['name' => Filter\StringTrim::class],
+                ],
+                'validators' => [
+                    [
+                        'name'    => Validator\StringLength::class,
+                        'options' => [
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ],
+                    ],
+                ],
+            ],
+            'email'    => [
+                'required'   => true,
+                'filters'    => [
+                    ['name' => Filter\StripTags::class],
+                    ['name' => Filter\StringTrim::class],
+                ],
+                'validators' => [
+                    [
+                        'name'    => Validator\StringLength::class,
+                        'options' => [
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 320, // true, we may never see an email this length, but they are still valid
+                        ],
+                    ],
+                    // @see EmailAddress for $options
+                    ['name' => Validator\EmailAddress::class],
+                ],
+            ],
         ];
+
+        if ($this->httpMethod === Http::METHOD_PUT) {
+            $filter[] = [
+                'id' => [
+                    'filters' => [
+                        ['name' =>  Filter\ToInt::class],
+                    ],
+                ],
+            ];
+        }
+
         return $filter;
     }
 }

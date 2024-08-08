@@ -56,6 +56,7 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
+                Handler\ContactCrudHandler::class   => Handler\ContactCrudHandlerFactory::class,
                 Handler\ContactHandler::class       => Handler\ContactHandlerFactory::class,
                 Handler\ListHandler::class          => Handler\ListHandlerFactory::class,
                 Handler\DashboardHandler::class     => Handler\DashboardHandlerFactory::class,
@@ -94,12 +95,21 @@ class ConfigProvider
                 'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST]
             ],
             [
+                'path'       => '/cm/get/contact/{id:\d+}[/{list_id:\d+}]',
+                'name'       => 'cm.get.contact',
+                'middleware' => [
+                    AuthenticationMiddleware::class,
+                    Handler\ContactHandler::class,
+                ],
+                'allowed_methods' => [Http::METHOD_GET],
+            ],
+            [
                 'path'       => '/cm/contact[/{list_id:\d+}]',
                 'name'       => 'cm.contact',
                 'middleware' => [
                     AuthenticationMiddleware::class,
                     BodyParamsMiddleware::class,
-                    Handler\ContactHandler::class
+                    Handler\ContactCrudHandler::class
                 ],
                 'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST, Http::METHOD_PUT],
             ],

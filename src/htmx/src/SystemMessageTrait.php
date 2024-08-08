@@ -8,9 +8,14 @@ use function json_encode;
 
 trait SystemMessageTrait
 {
-    protected function formatMessage(array $data): string
+    protected function systemMessage(array $data): string
     {
-        $message = ['systemMessage' => $data];
+        if (! isset($data['event'])) {
+            $data['event'] = 'systemMessage';
+        }
+        $event = $data['event'];
+        unset($data['event']);
+        $message = [$event => $data];
         return json_encode($message);
     }
 }

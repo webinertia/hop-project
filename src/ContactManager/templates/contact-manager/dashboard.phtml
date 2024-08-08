@@ -87,8 +87,11 @@
 </div> <!--end::App Content-->
 
 <script>
+    htmx.config.responseHandling = [
+        {code:".*", swap: true}
+    ];
     htmx.onLoad(function(content) {
-        var sortables     = content.querySelectorAll(".connectedSortable");
+        let sortables     = content.querySelectorAll(".connectedSortable");
         const cardHeaders = content.querySelectorAll(".connectedSortable .card-header");
 
         cardHeaders.forEach((cardHeader) => {
@@ -114,14 +117,17 @@
 
     let modal = new bootstrap.Modal(document.getElementById("modal"));
     htmx.on("htmx:afterSwap", (e) => {
+        // handle modals
         if (e.detail.target.id == "dialog") {
             modal.show();
         }
+        //console.log(e.detail, 'e.detail from htmx:afterSwap');
+        //console.log(htmx.config.responseHandling, "htmx.config.responseHandling");
     });
 
     htmx.on("htmx:beforeSwap", (e) => {
         let targetHeader = e.detail.xhr.getResponseHeader("HX-Success");
-        if (targetHeader == "true") {
+        if (targetHeader === "true") {
             modal.hide();
         }
     });
