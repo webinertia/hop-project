@@ -54,12 +54,12 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="connectedSortable" data-list-id="<?=$list['id']?>">
+                            <div class="connectedSortable" hx-trigger="end" data-list-id="<?=$list['id']?>">
                                 <?php
                                 foreach ($this->contacts as $contact):
                                     if ($contact['list_name'] === $list['list_name']):
                                 ?>
-                                    <div class="card mb-4" hx-post="<?=$this->url('cm.contact')?>">
+                                    <div class="card mb-4" hx-post="<?=$this->url('cm.contact')?>" data-contact-id="<?=$contact['id']?>">
                                         <div class="card-header">
                                             <h3 class="card-title"><?=$contact['first_name'] . ' ' . $contact['last_name']?></h3>
                                         </div>
@@ -109,7 +109,20 @@
                     let addedItem = evt.item;
                     console.log(evt.to, 'evt.to');
                     console.log(evt.from, 'evt.from');
-
+                    console.log(addedItem, 'addedItem from onAdd');
+                    console.log(htmx, 'htmx from onAdd');
+                    htmx.ajax(
+                        'PUT',
+                        '/cm/contact',
+                        {
+                            swap: 'none',
+                            values: {
+                                toList: evt.to.dataset.listId,
+                                fromList: evt.from.dataset.listId,
+                                id: addedItem.dataset.contactId
+                            }
+                        }
+                    );
                 }
             });
         }

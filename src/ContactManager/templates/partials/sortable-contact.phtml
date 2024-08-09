@@ -2,6 +2,8 @@
 // todo: add a id="contact_$id" to allow targeting a specific contact post update
 ?>
 <div class="card mb-4">
+    <input type="hidden" name="id" value="<?=$this->contact->id?>">
+    <input type="hidden" name="list_id" value="<?=$this->contact->list_id?>">
     <div class="card-header">
         <h3 class="card-title"><?=$this->contact->first_name . ' ' . $this->contact->last_name?></h3>
     </div>

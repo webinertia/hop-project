@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ContactManager\Handler;
 
+use ContactManager\Filter\Contact as ContactFilter;
 use ContactManager\Form\Contact;
 use ContactManager\Repository\ContactRepository;
 use Fig\Http\Message\RequestMethodInterface as Http;
@@ -31,6 +32,7 @@ class ContactCrudHandler implements RequestHandlerInterface
         private TemplateRendererInterface $renderer,
         private ContactRepository $contactRepository,
         private Contact $form,
+        private ContactFilter $inputFilter,
         private UrlHelper $url
     ) {
         $this->headers = [
@@ -118,7 +120,19 @@ class ContactCrudHandler implements RequestHandlerInterface
     // Handle updating of a contact
     public function handlePut(ServerRequestInterface $request): ResponseInterface
     {
-
+        // todo: wrap in try catch
+        // todo: query contact
+        // todo: run update
+        // todo: return correct response.
+        $requestBody = $request->getParsedBody();
+        $this->headers['HX-Trigger'] = $this->systemMessage(['level' => 'success', 'message' => 'Updated Successfully!']);
+        $this->inputFilter->setData($requestBody);
+        $this->inputFilter->isValid();
+        $params = $this->inputFilter->getValues(); // we now have either ints or nulls only
+        return new EmptyResponse(
+            204,
+            $this->headers
+        );
     }
 
     // Handle contact deletion

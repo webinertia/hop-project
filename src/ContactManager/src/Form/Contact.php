@@ -142,7 +142,7 @@ final class Contact extends Form\Form implements FormInterface, InputFilterProvi
                     ],
                 ],
             ],
-            'first_name' => [
+            'last_name' => [
                 'required' => true,
                 'filters'  => [
                     ['name' => Filter\StripTags::class],

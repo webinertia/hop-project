@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace ContactManager;
 
-use Laminas\Filter;
-use Laminas\Validator;
 use Fig\Http\Message\RequestMethodInterface as Http;
+use Laminas\Filter\ToNull;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 use Mezzio\Authentication\AuthenticationMiddleware;
 use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
 
@@ -29,7 +29,7 @@ class ConfigProvider
             'authentication'     => $this->getAuthenticationConfig(),
             'dependencies'       => $this->getDependencies(),
             'form_elements'      => $this->getFormElementConfig(),
-            //'input_filter_specs' => $this->getInputFilterSpecs(),
+            'input_filters'      => $this->getFilterConfig(),
             'routes'             => $this->getRouteConfig(),
             'templates'          => $this->getTemplates(),
             'view_helpers'       => $this->getViewHelpers(),
@@ -67,18 +67,19 @@ class ConfigProvider
         ];
     }
 
+    public function getFilterConfig(): array
+    {
+        return [
+            Filter\Contact::class => InvokableFactory::class
+        ];
+    }
+
     public function getFormElementConfig(): array
     {
         return [
             'factories' => [
                 Form\Contact::class => Form\ContactFactory::class,
             ],
-        ];
-    }
-
-    public function getInputFilterSpecs(): array
-    {
-        return [
         ];
     }
 
