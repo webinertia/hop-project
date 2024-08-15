@@ -1,40 +1,18 @@
-(function() { // ContactManager Dashboard
-    "use strict";
+// todo: move this to a notification.js file to load on both front and backend
+const systemMessage = function (level, msg) {
+    const template = document.querySelector('#systemMessageTemplate');
+    const clone    = template.content.firstElementChild.cloneNode(true);
+    //clone.classList.add(`bg-${level ?? 'info'}`, "fw-bold");
+    clone.querySelector('.toast-header').classList.add(`bg-${level ?? 'info'}`);
+    clone.querySelector('.toast-body').innerHTML = msg;
+    const container = document.querySelector('#systemMessage');
+    const messenger = new bootstrap.Toast(clone, {autohide: true, delay: 2000});
+    container.appendChild(clone);
+    messenger.show();
+};
+// handle the server triggered systemMessage event
+htmx.on("systemMessage", evt => systemMessage(evt.detail.level, evt.detail.message));
 
-    htmx.onLoad(function(content) {
-        var sortables     = content.querySelectorAll(".connectedSortable");
-        const cardHeaders = content.querySelectorAll(".connectedSortable .card-header");
+// Request Error handling
+htmx.on("htmx:responseError", evt => systemMessage('danger', evt.detail.xhr.responseText));
 
-        cardHeaders.forEach((cardHeader) => {
-            cardHeader.style.cursor = "move";
-        });
-
-        for (var i = 0; i < sortables.length; i++) {
-            var sortable = sortables[i];
-            new Sortable(sortable, {
-                group: {
-                    name: "shared",
-                },
-                handle: ".card-header",
-            });
-        }
-    });
-})();
-
-const modal = new bootstrap.Modal(document.getElementById("modal"));
-htmx.on("htmx:afterSwap", (e) => {
-    if (e.detail.target.id == "dialog") {
-        modal.show();
-    }
-});
-htmx.on("htmx:beforeSwap", (e) => {
-    //console.log(e.detail.xhr.getResponseHeader('HX-Success'), "getheader from beforeSwap");
-    let targetHeader = e.detail.xhr.getResponseHeader('HX-Success');
-    //console.log(targetHeader, 'targetHeader');
-    //console.log(e.detail.target.id, 'e.detail.target.id');
-    if (targetHeader == "true") {
-        //console.info('check limiting to just dialog');
-        modal.hide();
-        //e.detail.shouldSwap = false;
-    }
-});

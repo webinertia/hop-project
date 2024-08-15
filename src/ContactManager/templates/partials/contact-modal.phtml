@@ -1,0 +1,26 @@
+<div class="modal-content">
+    <?php
+    if (isset($this->form)):
+    ?>
+        <div class="modal-header"><?=$this->modalTitle?></div>
+        <div class="modal-body">
+            <?=$this->form($this->form)?>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button form="<?=$this->form->getAttribute('id')?>" type="submit" class="btn btn-primary">Save</button>
+        </div>
+    <?php
+    endif;
+    ?>
+</div>
+<?php
+if (isset($this->contact)):
+    $this->partial()->setObjectKey('contact');
+?>
+<div hx-swap-oob="beforeend:#list_<?=$this->contact->list_id?> .card-body .connectedSortable">
+    <?=$this->partial('cm-partials::sortable-contact', $this->contact)?>
+</div>
+<?php
+endif;
+?>

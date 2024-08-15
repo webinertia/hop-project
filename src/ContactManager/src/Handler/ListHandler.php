@@ -15,7 +15,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Template\TemplateRendererInterface;
 
-class CreateListHandler implements RequestHandlerInterface
+class ListHandler implements RequestHandlerInterface
 {
 
     public function __construct(
@@ -26,7 +26,6 @@ class CreateListHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $method = $request->getMethod();
         return match($request->getMethod()) {
             Http::METHOD_GET  => $this->handleGet($request),
             Http::METHOD_POST => $this->handlePost($request),
@@ -37,7 +36,7 @@ class CreateListHandler implements RequestHandlerInterface
     private function handleGet(ServerRequestInterface $request): ResponseInterface
     {
         return new HtmlResponse(
-            $this->renderer->render('contact-manager-partials::create-list-modal')
+            $this->renderer->render('cm-partials::create-list-modal')
         );
     }
 
@@ -51,7 +50,7 @@ class CreateListHandler implements RequestHandlerInterface
                     // throw exception
                 }
                 return new HtmlResponse(
-                    $this->renderer->render('contact-manager-partials::sortable-list', ['list' => $list->getArrayCopy()]),
+                    $this->renderer->render('cm-partials::sortable-list', ['list' => $list->getArrayCopy()]),
                     200,
                     ['HX-Success' => 'true']
                 );

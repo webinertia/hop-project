@@ -22,7 +22,7 @@
             <!--begin::Col-->
             <div class="col-sm-1 col-1 mb-4">
                 <button
-                    hx-get="<?=$this->url('cm.create.list')?>"
+                    hx-get="<?=$this->url('cm.list')?>"
                     hx-target="#dialog"
                     type="button"
                     class="btn btn-primary btn-md">New List</button>
@@ -45,27 +45,47 @@
                                     <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
                                     <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
                                 </button>
-                                <button type="button" role="button" data-cmlist-id="<?=$list['id']?>" class="create-contact-button btn btn-primary btn-sm">
+                                <button
+                                    hx-get="<?=$this->url('cm.contact') . '/' . $list['id']?>"
+                                    hx-target="#dialog"
+                                    type="button" class="btn btn-primary btn-sm">
                                     New Contact
                                 </button>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="connectedSortable">
+                            <div class="connectedSortable" hx-trigger="end" data-list-id="<?=$list['id']?>">
                                 <?php
                                 foreach ($this->contacts as $contact):
-                                    if ($contact['list_name'] === $list['list_name']):
+                                    if ($contact['list_id'] === $list['id']):
                                 ?>
-                                    <div class="card mb-4">
+                                    <div id="contact_<?=$contact['id']?>" class="card mb-4" data-contact-id="<?=$contact['id']?>">
                                         <div class="card-header">
                                             <h3 class="card-title"><?=$contact['first_name'] . ' ' . $contact['last_name']?></h3>
+                                            <div class="card-tools">
+                                                <button
+                                                    hx-get="<?=$this->url('cm.contact', ['list_id' => $list['id'], 'id' => $contact['id']])?>"
+                                                    hx-target="#dialog"
+                                                    type="button"
+                                                    class="btn btn-primary btn-sm">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <button
+                                                    hx-delete="<?=$this->url('cm.contact', ['list_id' => $list['id'], 'id' => $contact['id']])?>"
+                                                    hx-target="#contact_<?=$contact['id']?>"
+                                                    hx-swap="outerHTML"
+                                                    hx-confirm="Are you sure you want to delete this contact?"
+                                                    type="button"
+                                                    class="btn btn-primary btn-sm">
+                                                    <i class="bi bi-trash3"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                         <div class="card-body">
-                                            <div id="revenue-chart"></div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Email: <?=$contact['email']?></li>
+                                            </ul>
                                         </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">Email: <?=$contact['email']?></li>
-                                        </ul>
                                     </div> <!-- /.card -->
                                 <?php
                                     endif;
@@ -82,3 +102,69 @@
         </div> <!-- /.row (main row) -->
     </div> <!--end::Container-->
 </div> <!--end::App Content-->
+
+<script>
+    htmx.config.responseHandling = [
+        {code:".*", swap: true}
+    ];
+    htmx.onLoad(function(content) {
+        let sortables     = content.querySelectorAll(".connectedSortable");
+        const cardHeaders = content.querySelectorAll(".connectedSortable .card-header");
+
+        cardHeaders.forEach((cardHeader) => {
+            cardHeader.style.cursor = "move";
+        });
+
+        for (var i = 0; i < sortables.length; i++) {
+            var sortable = sortables[i];
+            new Sortable(sortable, {
+                group: {
+                    name: "shared",
+                },
+                handle: ".card-header",
+                onEnd: (evt) => {
+                    let addedItem = evt.item;
+                    console.log('evt.to', evt.to);
+                    console.log('evt.from', evt.from);
+                    console.log('addedItem.id from onEnd', addedItem.id);
+                    console.log('htmx from onEnd', htmx);
+                    htmx.ajax(
+                        'PATCH',
+                        '/cm/contact',
+                        {
+                            target: '#' + addedItem.id,
+                            swap: 'outerHTML',
+                            select: '#' + addedItem.id,
+                            values: {
+                                toList: evt.to.dataset.listId,
+                                fromList: evt.from.dataset.listId,
+                                id: addedItem.dataset.contactId
+                            }
+                        }
+                    );
+                }
+            });
+        }
+    });
+
+    let modal = new bootstrap.Modal(document.getElementById("modal"));
+    htmx.on("htmx:afterSwap", (e) => {
+        // handle modals
+        if (e.detail.target.id == "dialog") {
+            modal.show();
+        }
+        //console.log(e.detail, 'e.detail from htmx:afterSwap');
+        //console.log(htmx.config.responseHandling, "htmx.config.responseHandling");
+    });
+
+    htmx.on("htmx:beforeSwap", (e) => {
+        let targetHeader = e.detail.xhr.getResponseHeader("HX-Success");
+        if (targetHeader === "true") {
+            modal.hide();
+        }
+    });
+
+    htmx.on("hidden.bs.modal", () => {
+        document.getElementById("dialog").innerHTML = "";
+    });
+</script>

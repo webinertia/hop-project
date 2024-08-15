@@ -32,13 +32,9 @@ $this->headLink()
             'crossorigin' => 'anonymous',
         ]
     )->appendStylesheet(
-        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css',
+        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css',
         'screen',
         '',
-        [
-            'integrity'   => 'sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=',
-            'crossorigin' => 'anonymous',
-        ]
     )->appendStylesheet(
         $this->basePath('dashboard/css/adminlte.css'), // local styles
         'screen'
@@ -68,7 +64,7 @@ $this->headScript()
             'integrity' => 'sha384-gpIh5aLQ0qmX8kZdyhsd6jA24uKLkqIr1WAGtantR4KsS97l/NRBvh8/8OYGThAf',
             'crossorigin' => 'anonymous',
         ],
-    );
+    )->appendScript($this->htmxConfig);
 
 $this->inlineScript()
     ->appendFile(
@@ -207,42 +203,15 @@ $this->inlineScript()
     <link rel="shortcut icon" href="https://getlaminas.org/images/favicon/favicon.ico" />
     <?=$this->headTitle('Hop Project')->setSeparator(' - ')->setAutoEscape(false)?>
     <?=$this->headMeta()?>
+    <meta name="htmx-config-response-handling" content='{"code": "422", "swap": true}'>
     <?=$this->headLink()?>
     <?=$this->headScript()?>
 </head>
 <body class="<?=$this->bodyClass();?>">
-<!-- create list modal -->
-
-<!-- end create-list modal -->
-<!-- create contact modal -->
-<div id="create-contact-modal" class="modal fade" tabindex="-1" aria-labelledby="createContactModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createContactModalLabel">New Contact</h1>
-      </div>
-      <div class="modal-body">
-          <form id="create-contact-form" action="<?=$this->url('cm.create.contact')?>" method="post">
-              <input id="contact-list-id" name="list_id" type="hidden">
-              <div class="input-group mb-3">
-                <input name="first_name" type="text" class="form-control" placeholder="First Name">
-              </div>
-              <div class="input-group mb-3">
-                <input name="last_name" type="text" class="form-control" placeholder="Last Name">
-              </div>
-              <div class="input-group mb-3">
-                <input name="email" type="text" class="form-control" placeholder="Email">
-              </div>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button id="create-contact-modal-submit" type="button" class="btn btn-primary">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end create-contact modal -->
+<?php
+// render the alert sprite
+echo $this->render('app-partials::bs-alert-sprite');
+?>
 <div class="app-wrapper"> <!--begin::Header-->
         <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
@@ -561,6 +530,20 @@ $this->inlineScript()
     <div id="modal" class="modal fade">
         <div id="dialog" class="modal-dialog" hx-target="this"></div>
     </div>
+    <div id="systemMessage" class="container position-fixed bottom-0 start-100 translate-middle-x"></div>
+    <template id="systemMessageTemplate">
+            <div
+                id="liveToast"
+                class="toast"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">System Message</strong>
+                </div>
+                <div class="toast-body"></div>
+            </div>
+    </template>
     <?=$this->inlineScript()?>
 </body>
 </html>

@@ -15,6 +15,13 @@ final class ListRepository extends AbstractRepository
     {
         $select = $this->gateway->getSql();
         $where  = new Where();
+    }
 
+    public function findListWithContacts(int $userId)
+    {
+        /** @var Select */
+        // $select = new Select($this->gateway->getTable());
+        // $where = new Where();
+        // $where->equalTo('user_id');
     }
 }

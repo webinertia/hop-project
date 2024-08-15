@@ -32,4 +32,11 @@ return [
             'ajax_only'  => true,
         ],
     ],
+    'square' => [
+        'config' => [
+            'app_id'       => 'sandbox-sq0idb-7I_SX0DvhOqGpM69fRcpVQ',
+            'access_token' => 'EAAAlznqj8RR028pFt00_5szKKRa-Z1E6KcDQURktYsr_gICtzjz3cF0Gk97Wkrk',
+        ],
+        'api_version' => '2024-07-17',
+    ],
 ];

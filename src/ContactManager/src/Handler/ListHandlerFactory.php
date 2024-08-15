@@ -8,11 +8,11 @@ use ContactManager\Repository\ListRepository;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Container\ContainerInterface;
 
-class CreateListHandlerFactory
+class ListHandlerFactory
 {
-    public function __invoke(ContainerInterface $container): CreateListHandler
+    public function __invoke(ContainerInterface $container): ListHandler
     {
-        return new CreateListHandler(
+        return new ListHandler(
             $container->get(TemplateRendererInterface::class),
             $container->get(ListRepository::class)
         );
