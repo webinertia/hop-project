@@ -114,7 +114,7 @@ class ConfigProvider
                     BodyParamsMiddleware::class,
                     Handler\ContactCrudHandler::class
                 ],
-                'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST, Http::METHOD_PUT, Http::METHOD_PATCH],
+                'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST, Http::METHOD_PUT, Http::METHOD_PATCH, Http::METHOD_DELETE],
             ],
             [
                 'path'       => '/cm/list',

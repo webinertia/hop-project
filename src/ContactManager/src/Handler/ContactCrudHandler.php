@@ -199,7 +199,7 @@ class ContactCrudHandler implements RequestHandlerInterface
             $contact = $this->contactRepository->findOneBy('id', $data['id']);
             $contact->list_id = $data['toList'];
             $contact = $this->contactRepository->save($contact->getArrayCopy(), 'id');
-            $this->htmxTrigger(['level' => 'success', 'message' => $contact->first_name . 'Contact Updated.']);
+            $this->htmxTrigger(['level' => 'success', 'message' => $contact->first_name . ' Contact Updated.']);
             $this->headers['HX-Success'] = 'true';
             $this->code = 202;
         } else {
@@ -220,6 +220,33 @@ class ContactCrudHandler implements RequestHandlerInterface
     // Handle contact deletion
     public function handleDelete(ServerRequestInterface $request): ResponseInterface
     {
-
+        $routeResult = $request->getAttribute(RouteResult::class);
+        $params      = $routeResult->getMatchedParams();
+        if (isset($params['id'])) {
+            $contact = $this->contactRepository->findOneBy('id', $params['id']);
+            try {
+                $result = $this->contactRepository->delete(null, ['id' => $contact->id]);
+                if ($result) {
+                    $this->htmxTrigger(['level' => 'success', 'message' => 'Contact Deleted.']);
+                    $this->headers['HX-Success'] = 'true';
+                    $this->code = 200;
+                    return new EmptyResponse(
+                        $this->code,
+                        $this->headers
+                    );
+                }
+                $this->htmxTrigger(['level' => 'danger', 'message' => 'Could not delete contact!']);
+                $this->headers['HX-Success'] = 'false';
+                $this->code = 204;
+            } catch (\Throwable $th) {
+                $this->htmxTrigger(['level' => 'danger', 'message' => 'Internal Server Error. Could not delete contact!']);
+                $this->headers['HX-Success'] = 'false';
+                $this->code = 500;
+            }
+            return new EmptyResponse(
+                $this->code,
+                $this->headers
+            );
+        }
     }
 }

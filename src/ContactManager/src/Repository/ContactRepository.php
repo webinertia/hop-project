@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace ContactManager\Repository;
 
 use Axleus\Db\AbstractRepository;
+use Axleus\Db\RepositoryTrait;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Where;
 
 final class ContactRepository extends AbstractRepository
 {
+    use RepositoryTrait;
+
     public function findAllByUserId(int $userId)
     {
         /** @var Select */
