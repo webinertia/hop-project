@@ -1,0 +1,15 @@
+<div class="card-header">
+    <h3 class="card-title"><?=$this->contact->first_name . ' ' . $this->contact->last_name?></h3>
+    <button
+        hx-get="<?=$this->url('cm.contact', ['list_id' => $this->contact->list_id, 'id' => $this->contact->id])?>"
+        hx-target="#dialog"
+        type="button"
+        class="btn btn-primary btn-sm">
+        Update
+    </button>
+</div>
+<div class="card-body">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Email: <?=$this->contact->email?></li>
+    </ul>
+</div>

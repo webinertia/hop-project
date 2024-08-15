@@ -70,7 +70,9 @@ class ConfigProvider
     public function getFilterConfig(): array
     {
         return [
-            Filter\Contact::class => InvokableFactory::class
+            'factories' => [
+                Filter\Contact::class => InvokableFactory::class
+            ],
         ];
     }
 
@@ -105,14 +107,14 @@ class ConfigProvider
                 'allowed_methods' => [Http::METHOD_GET],
             ],
             [
-                'path'       => '/cm/contact[/{list_id:\d+}]',
+                'path'       => '/cm/contact[/{list_id:\d+}[/{id:\d+}]]',
                 'name'       => 'cm.contact',
                 'middleware' => [
                     AuthenticationMiddleware::class,
                     BodyParamsMiddleware::class,
                     Handler\ContactCrudHandler::class
                 ],
-                'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST, Http::METHOD_PUT],
+                'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST, Http::METHOD_PUT, Http::METHOD_PATCH],
             ],
             [
                 'path'       => '/cm/list',

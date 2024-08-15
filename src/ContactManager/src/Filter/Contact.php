@@ -25,6 +25,7 @@ class Contact extends InputFilter
         )->add(
             [
                 'name'    => 'fromList',
+                'allow_empty' => true,
                 'filters' => [
                     ['name' => Filter\ToInt::class],
                     ['name' => Filter\ToNull::class],
@@ -33,7 +34,7 @@ class Contact extends InputFilter
         )->add(
             [
                 'name'    => 'id',
-                'required' => true,
+                'allow_empty' => true,
                 'filters' => [
                     ['name' => Filter\ToInt::class],
                     ['name' => Filter\ToNull::class],
@@ -58,24 +59,26 @@ class Contact extends InputFilter
                     ],
                 ],
             ]
-        )->add([
-            'name' => 'last_name',
-            'allow_empty' => true,
-            'filters'  => [
-                ['name' => Filter\StripTags::class],
-                ['name' => Filter\StringTrim::class],
-            ],
-            'validators' => [
-                [
-                    'name'    => Validator\StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min'      => 1,
-                        'max'      => 100,
+        )->add(
+            [
+                'name' => 'last_name',
+                'allow_empty' => true,
+                'filters'  => [
+                    ['name' => Filter\StripTags::class],
+                    ['name' => Filter\StringTrim::class],
+                ],
+                'validators' => [
+                    [
+                        'name'    => Validator\StringLength::class,
+                        'options' => [
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ],
                     ],
                 ],
-            ],
-        ])->add(
+            ]
+        )->add(
             [
                 'name' => 'email',
                 'allow_empty' => true,

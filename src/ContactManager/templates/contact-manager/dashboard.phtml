@@ -57,18 +57,26 @@
                             <div class="connectedSortable" hx-trigger="end" data-list-id="<?=$list['id']?>">
                                 <?php
                                 foreach ($this->contacts as $contact):
-                                    if ($contact['list_name'] === $list['list_name']):
+                                    if ($contact['list_id'] === $list['id']):
                                 ?>
-                                    <div class="card mb-4" hx-post="<?=$this->url('cm.contact')?>" data-contact-id="<?=$contact['id']?>">
+                                    <div id="contact_<?=$contact['id']?>" class="card mb-4" data-contact-id="<?=$contact['id']?>">
                                         <div class="card-header">
                                             <h3 class="card-title"><?=$contact['first_name'] . ' ' . $contact['last_name']?></h3>
+                                            <div class="card-tools">
+                                                <button
+                                                    hx-get="<?=$this->url('cm.contact', ['list_id' => $list['id'], 'id' => $contact['id']])?>"
+                                                    hx-target="#dialog"
+                                                    type="button"
+                                                    class="btn btn-primary btn-sm">
+                                                    Update
+                                                </button>
+                                            </div>
                                         </div>
                                         <div class="card-body">
-                                            <div id="revenue-chart"></div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Email: <?=$contact['email']?></li>
+                                            </ul>
                                         </div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">Email: <?=$contact['email']?></li>
-                                        </ul>
                                     </div> <!-- /.card -->
                                 <?php
                                     endif;
@@ -105,17 +113,19 @@
                     name: "shared",
                 },
                 handle: ".card-header",
-                onAdd: (evt) => {
+                onEnd: (evt) => {
                     let addedItem = evt.item;
-                    console.log(evt.to, 'evt.to');
-                    console.log(evt.from, 'evt.from');
-                    console.log(addedItem, 'addedItem from onAdd');
-                    console.log(htmx, 'htmx from onAdd');
+                    console.log('evt.to', evt.to);
+                    console.log('evt.from', evt.from);
+                    console.log('addedItem.id from onEnd', addedItem.id);
+                    console.log('htmx from onEnd', htmx);
                     htmx.ajax(
-                        'PUT',
+                        'PATCH',
                         '/cm/contact',
                         {
-                            swap: 'none',
+                            target: '#' + addedItem.id,
+                            swap: 'outerHTML',
+                            select: '#' + addedItem.id,
                             values: {
                                 toList: evt.to.dataset.listId,
                                 fromList: evt.from.dataset.listId,

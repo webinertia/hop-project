@@ -13,13 +13,19 @@ final class ContactRepository extends AbstractRepository
     public function findAllByUserId(int $userId)
     {
         /** @var Select */
-        $select = new Select($this->gateway->getTable());
-        //$select->columns(['id', 'user_id', 'first_name', 'list_id']);
+        $select = new Select(['c' => $this->gateway->getTable()]);
+        $select->columns(['id', 'user_id', 'first_name', 'last_name', 'email', 'list_id']);
         $where = new Where();
         $where->equalTo('user_id', $userId);
+        // $select->join(
+        //     ['l' => 'lists'],
+        //     'l.id = list_id'
+        // );
         $select->join(
             ['l' => 'lists'],
-            'l.id = list_id'
+            'c.list_id = l.id',
+            ['list_name'],
+            Select::JOIN_LEFT_OUTER
         );
         //$select->group('list_id');
         $select->order(['list_id ASC']);

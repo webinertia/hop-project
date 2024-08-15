@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ContactManager\Form;
 
+use ContactManager\Filter\Contact as ContactFilter;
 use Fig\Http\Message\RequestMethodInterface as Http;
 use Laminas\Filter;
 use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\Validator;
 use Laminas\Form;
 use Limatus\Form\HttpMethodTrait;
@@ -15,7 +15,7 @@ use Limatus\FormInterface;
 
 use function strtolower;
 
-final class Contact extends Form\Form implements FormInterface, InputFilterProviderInterface
+final class Contact extends Form\Form implements FormInterface
 {
     use HttpMethodTrait;
 
@@ -33,20 +33,18 @@ final class Contact extends Form\Form implements FormInterface, InputFilterProvi
 
     public function init(): void
     {
-        $options = $this->getOptions();
-
+        // attach the custom input filter
+        $this->setInputFilterByName(ContactFilter::class);
         $this->setAttribute('id', 'contact-form');
 
         $this->add([
             'name' => 'list_id',
             'type' => Form\Element\Hidden::class,
         ]);
-        if ($this->httpMethod === Http::METHOD_PUT) { // only need this for updating a contact
-            $this->add([
-                'name' => 'id',
-                'type' => Form\Element\Hidden::class,
-            ]);
-        }
+        $this->add([
+            'name' => 'id',
+            'type' => Form\Element\Hidden::class,
+        ]);
         $this->add([
             'name' => 'first_name',
             'type' => Form\Element\Text::class,
@@ -119,78 +117,6 @@ final class Contact extends Form\Form implements FormInterface, InputFilterProvi
                 // ],
             ],
         ]);
-    }
-
-    public function getInputFilterSpecification(): array
-    {
-        $options = $this->getOptions();
-        $filter  = [
-            'first_name' => [
-                'required' => true,
-                'filters'  => [
-                    ['name' => Filter\StripTags::class],
-                    ['name' => Filter\StringTrim::class],
-                ],
-                'validators' => [
-                    [
-                        'name'    => Validator\StringLength::class,
-                        'options' => [
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 100,
-                        ],
-                    ],
-                ],
-            ],
-            'last_name' => [
-                'required' => true,
-                'filters'  => [
-                    ['name' => Filter\StripTags::class],
-                    ['name' => Filter\StringTrim::class],
-                ],
-                'validators' => [
-                    [
-                        'name'    => Validator\StringLength::class,
-                        'options' => [
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 100,
-                        ],
-                    ],
-                ],
-            ],
-            'email'    => [
-                'required'   => true,
-                'filters'    => [
-                    ['name' => Filter\StripTags::class],
-                    ['name' => Filter\StringTrim::class],
-                ],
-                'validators' => [
-                    [
-                        'name'    => Validator\StringLength::class,
-                        'options' => [
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 320, // true, we may never see an email this length, but they are still valid
-                        ],
-                    ],
-                    // @see EmailAddress for $options
-                    ['name' => Validator\EmailAddress::class],
-                ],
-            ],
-        ];
-
-        if ($this->httpMethod === Http::METHOD_PUT) {
-            $filter[] = [
-                'id' => [
-                    'filters' => [
-                        ['name' =>  Filter\ToInt::class],
-                    ],
-                ],
-            ];
-        }
-
-        return $filter;
     }
 }
 

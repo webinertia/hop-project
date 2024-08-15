@@ -50,9 +50,9 @@ class LoginHandler implements RequestHandlerInterface
 
         // Render and return a response:
         return new HtmlResponse($this->template->render(
-            'contact-manager::landing',
+            'cm::landing',
             [
-                'layout' => 'contact-manager::landing-layout'
+                'layout' => 'cm::landing-layout'
             ] // parameters to pass to template
         ));
     }

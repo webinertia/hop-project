@@ -2,7 +2,7 @@
     <?php
     if (isset($this->form)):
     ?>
-        <div class="modal-header"><?=$this->modalTitle?></div>
+        <div class="modal-header">Update Contact</div>
         <div class="modal-body">
             <?=$this->form($this->form)?>
         </div>
@@ -18,9 +18,7 @@
 if (isset($this->contact)):
     $this->partial()->setObjectKey('contact');
 ?>
-<div hx-swap-oob="beforeend:#list_<?=$this->contact->list_id?> .card-body .connectedSortable">
     <?=$this->partial('cm-partials::sortable-contact', $this->contact)?>
-</div>
 <?php
 endif;
 ?>

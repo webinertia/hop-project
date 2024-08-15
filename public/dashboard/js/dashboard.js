@@ -10,7 +10,9 @@ const systemMessage = function (level, msg) {
     container.appendChild(clone);
     messenger.show();
 };
-//htmx.on("htmx:responseError", evt => systemMessage(evt.detail.xhr.responseText, 'danger'));
 // handle the server triggered systemMessage event
 htmx.on("systemMessage", evt => systemMessage(evt.detail.level, evt.detail.message));
+
+// Request Error handling
+htmx.on("htmx:responseError", evt => systemMessage('danger', evt.detail.xhr.responseText));
 
