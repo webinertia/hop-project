@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6009df534f3d4a0616432d8b0ec17ffd",
+    "content-hash": "9060644f8b0c5dfadc75c388245d60f0",
     "packages": [
         {
             "name": "axleus/axleus-db",
@@ -730,16 +730,16 @@
         },
         {
             "name": "laminas/laminas-filter",
-            "version": "2.36.0",
+            "version": "2.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-filter.git",
-                "reference": "307afc21ada0648e84cdcf9e14cd84bd43ee9d13"
+                "reference": "27dda1e60547bc000b876e24808f47932df2f4ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-filter/zipball/307afc21ada0648e84cdcf9e14cd84bd43ee9d13",
-                "reference": "307afc21ada0648e84cdcf9e14cd84bd43ee9d13",
+                "url": "https://api.github.com/repos/laminas/laminas-filter/zipball/27dda1e60547bc000b876e24808f47932df2f4ac",
+                "reference": "27dda1e60547bc000b876e24808f47932df2f4ac",
                 "shasum": ""
             },
             "require": {
@@ -805,7 +805,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-06-13T10:31:36+00:00"
+            "time": "2024-08-12T09:23:23+00:00"
         },
         {
             "name": "laminas/laminas-form",
@@ -1270,87 +1270,6 @@
             "time": "2023-10-18T09:54:55+00:00"
         },
         {
-            "name": "laminas/laminas-navigation",
-            "version": "2.19.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laminas/laminas-navigation.git",
-                "reference": "2ef88f68066381698b528be7fdd001723458a479"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-navigation/zipball/2ef88f68066381698b528be7fdd001723458a479",
-                "reference": "2ef88f68066381698b528be7fdd001723458a479",
-                "shasum": ""
-            },
-            "require": {
-                "laminas/laminas-stdlib": "^2.7 || ^3.0",
-                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
-            },
-            "conflict": {
-                "zendframework/zend-navigation": "*"
-            },
-            "require-dev": {
-                "laminas/laminas-coding-standard": "~2.5.0",
-                "laminas/laminas-config": "^3.8.0",
-                "laminas/laminas-http": "^2.18",
-                "laminas/laminas-i18n": "^2.21",
-                "laminas/laminas-mvc": "^3.6",
-                "laminas/laminas-permissions-acl": "^2.13",
-                "laminas/laminas-router": "^3.11.1",
-                "laminas/laminas-servicemanager": "^3.20",
-                "laminas/laminas-uri": "^2.10.0",
-                "laminas/laminas-view": "^2.26",
-                "phpunit/phpunit": "^9.5.28",
-                "psalm/plugin-phpunit": "^0.18.4",
-                "vimeo/psalm": "^5.6"
-            },
-            "suggest": {
-                "laminas/laminas-config": "^3.7, to provide page configuration (optional, as arrays and Traversables are also allowed)",
-                "laminas/laminas-permissions-acl": "^2.9, to provide ACL-based access restrictions to pages",
-                "laminas/laminas-router": "^3.5, to use router-based URI generation with Mvc pages",
-                "laminas/laminas-servicemanager": "^3.16, to use the navigation factories",
-                "laminas/laminas-view": "^2.14, to use the navigation view helpers"
-            },
-            "type": "library",
-            "extra": {
-                "laminas": {
-                    "component": "Laminas\\Navigation",
-                    "config-provider": "Laminas\\Navigation\\ConfigProvider"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laminas\\Navigation\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Manage trees of pointers to web pages in order to build navigation systems",
-            "homepage": "https://laminas.dev",
-            "keywords": [
-                "laminas",
-                "navigation"
-            ],
-            "support": {
-                "chat": "https://laminas.dev/chat",
-                "docs": "https://docs.laminas.dev/laminas-navigation/",
-                "forum": "https://discourse.laminas.dev",
-                "issues": "https://github.com/laminas/laminas-navigation/issues",
-                "rss": "https://github.com/laminas/laminas-navigation/releases.atom",
-                "source": "https://github.com/laminas/laminas-navigation"
-            },
-            "funding": [
-                {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
-                }
-            ],
-            "time": "2024-01-10T15:11:10+00:00"
-        },
-        {
             "name": "laminas/laminas-servicemanager",
             "version": "3.22.1",
             "source": {
@@ -1633,22 +1552,22 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.62.0",
+            "version": "2.64.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "83fbcf4a7986796261beb541bed09c06826446e9"
+                "reference": "9db115056b666b7540c951b6d4477b8e0b52b9ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/83fbcf4a7986796261beb541bed09c06826446e9",
-                "reference": "83fbcf4a7986796261beb541bed09c06826446e9",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/9db115056b666b7540c951b6d4477b8e0b52b9ad",
+                "reference": "9db115056b666b7540c951b6d4477b8e0b52b9ad",
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.21.0",
-                "laminas/laminas-stdlib": "^3.13",
-                "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
+                "laminas/laminas-stdlib": "^3.19",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
                 "psr/http-message": "^1.0.1 || ^2.0.0"
             },
             "conflict": {
@@ -1713,7 +1632,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2024-07-16T08:58:25+00:00"
+            "time": "2024-08-01T09:32:54+00:00"
         },
         {
             "name": "laminas/laminas-view",
@@ -3029,227 +2948,6 @@
                 }
             ],
             "time": "2021-04-19T16:34:45+00:00"
-        },
-        {
-            "name": "webinertia/limatus",
-            "version": "0.0.16.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webinertia/limatus.git",
-                "reference": "da132a95976a035c0e4e5f520cb8d71bb6e9f7b2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webinertia/limatus/zipball/da132a95976a035c0e4e5f520cb8d71bb6e9f7b2",
-                "reference": "da132a95976a035c0e4e5f520cb8d71bb6e9f7b2",
-                "shasum": ""
-            },
-            "require": {
-                "laminas/laminas-form": "^3.19.2",
-                "laminas/laminas-navigation": "^2.18",
-                "laminas/laminas-view": "^2.27",
-                "php": "~8.1.0 || ~8.2.0",
-                "webinertia/webinertia-filter": "^0.0.5",
-                "webinertia/webinertia-validator": "^0.0.3 || ^0.0.4"
-            },
-            "require-dev": {
-                "doctrine/annotations": "^2.0.0",
-                "ext-intl": "*",
-                "laminas/laminas-captcha": "^2.15",
-                "laminas/laminas-coding-standard": "^2.4",
-                "laminas/laminas-db": "^2.16",
-                "laminas/laminas-escaper": "^2.12",
-                "laminas/laminas-eventmanager": "^3.8",
-                "laminas/laminas-filter": "^2.29",
-                "laminas/laminas-i18n": "^2.21",
-                "laminas/laminas-modulemanager": "^2.14.0",
-                "laminas/laminas-recaptcha": "^3.5",
-                "laminas/laminas-servicemanager": "^3.20",
-                "laminas/laminas-session": "^2.16",
-                "laminas/laminas-test": "^4.8",
-                "laminas/laminas-text": "^2.9.0",
-                "laminas/laminas-validator": "^2.28",
-                "laminas/laminas-view": "^2.25",
-                "phpunit/phpunit": "10.4.2",
-                "psalm/plugin-phpunit": "^0.18.4",
-                "vimeo/psalm": "^5.18"
-            },
-            "suggest": {
-                "laminas/laminas-component-installer": "^3.0, required for configuration injection",
-                "webinertia/webinertia-uploader": "^0.0.1, Provides event driven file uploads for Laminas MVC apps and Webinertia CMS"
-            },
-            "type": "library",
-            "extra": {
-                "laminas": {
-                    "module": "Limatus",
-                    "config-provider": "Limatus\\ConfigProvider"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Limatus\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Joey Smith",
-                    "email": "jsmith@webinertia.net",
-                    "homepage": "https://webinertia.net/"
-                }
-            ],
-            "description": "Provides Bootstrap loading, form elements and view helpers for laminas view and form",
-            "homepage": "https://github.com/webinertia/limatus",
-            "keywords": [
-                "bootstrap 5.3",
-                "laminas",
-                "laminas form",
-                "laminas view"
-            ],
-            "support": {
-                "issues": "https://github.com/webinertia/limatus/issues",
-                "source": "https://github.com/webinertia/limatus/tree/0.0.16"
-            },
-            "time": "2024-05-19T04:34:34+00:00"
-        },
-        {
-            "name": "webinertia/webinertia-filter",
-            "version": "0.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webinertia/webinertia-filter.git",
-                "reference": "bb4419cb133dcafd4812cbd6e631f28517fb73ce"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webinertia/webinertia-filter/zipball/bb4419cb133dcafd4812cbd6e631f28517fb73ce",
-                "reference": "bb4419cb133dcafd4812cbd6e631f28517fb73ce",
-                "shasum": ""
-            },
-            "require": {
-                "laminas/laminas-filter": "^2.32.0",
-                "php": "~8.1.0 || ~8.2.0"
-            },
-            "conflict": {
-                "laminas/laminas-validator": "<2.10.1"
-            },
-            "require-dev": {
-                "laminas/laminas-coding-standard": "^2.5",
-                "laminas/laminas-test": "^4.8",
-                "phpstan/extension-installer": "^1.2",
-                "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^10.2",
-                "psalm/plugin-phpunit": "^0.18.4",
-                "slam/phpstan-laminas-framework": "^1.4"
-            },
-            "suggest": {
-                "laminas/laminas-component-installer": "^3.0, required for configuration injection"
-            },
-            "type": "library",
-            "extra": {
-                "laminas": {
-                    "component": "Webinertia\\Filter",
-                    "config-provider": "Webinertia\\Filter\\ConfigProvider"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Webinertia\\Filter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Joey Smith",
-                    "email": "jsmith@webinertia.net",
-                    "homepage": "https://webinertia.net/"
-                }
-            ],
-            "description": "Provides filters for Webinertia components",
-            "homepage": "https://github.com/webinertia/webinertia-filter/discussions",
-            "keywords": [
-                "filter",
-                "laminas",
-                "mezzio",
-                "webinertia"
-            ],
-            "support": {
-                "issues": "https://github.com/webinertia/webinertia-filter/issues",
-                "source": "https://github.com/webinertia/webinertia-filter/tree/0.0.5"
-            },
-            "time": "2023-09-18T05:00:21+00:00"
-        },
-        {
-            "name": "webinertia/webinertia-validator",
-            "version": "0.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webinertia/webinertia-validator.git",
-                "reference": "fe870c33d1fbad5fc2cc62f0fceaf16f52cd8491"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webinertia/webinertia-validator/zipball/fe870c33d1fbad5fc2cc62f0fceaf16f52cd8491",
-                "reference": "fe870c33d1fbad5fc2cc62f0fceaf16f52cd8491",
-                "shasum": ""
-            },
-            "require": {
-                "laminas/laminas-validator": "^2.32.0",
-                "php": "~8.1.0 || ~8.2.0"
-            },
-            "require-dev": {
-                "laminas/laminas-coding-standard": "^2.5",
-                "laminas/laminas-test": "^4.8",
-                "phpstan/extension-installer": "^1.2",
-                "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^10.2",
-                "psalm/plugin-phpunit": "^0.18.4",
-                "slam/phpstan-laminas-framework": "^1.4"
-            },
-            "suggest": {
-                "laminas/laminas-component-installer": "^3.0, required for configuration injection"
-            },
-            "type": "library",
-            "extra": {
-                "laminas": {
-                    "component": "Webinertia\\Validator",
-                    "config-provider": "Webinertia\\Validator\\ConfigProvider"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Webinertia\\Validator\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Joey Smith",
-                    "email": "jsmith@webinertia.net",
-                    "homepage": "https://webinertia.net/"
-                }
-            ],
-            "description": "Provides Validators for Webinertia components",
-            "homepage": "https://github.com/webinertia/webinertia-validator/discussions",
-            "keywords": [
-                "laminas",
-                "validator",
-                "webinertia"
-            ],
-            "support": {
-                "issues": "https://github.com/webinertia/webinertia-validator/issues",
-                "source": "https://github.com/webinertia/webinertia-validator/tree/0.0.4"
-            },
-            "time": "2023-09-18T05:27:25+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -8746,7 +8444,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "axleus/axleus-db": 20,
-        "webinertia/limatus": 20,
         "axleus/axleus-dev-tools": 20,
         "roave/security-advisories": 20
     },

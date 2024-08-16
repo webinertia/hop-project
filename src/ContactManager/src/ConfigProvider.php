@@ -98,15 +98,6 @@ class ConfigProvider
                 'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST]
             ],
             [
-                'path'       => '/cm/get/contact/{id:\d+}[/{list_id:\d+}]',
-                'name'       => 'cm.get.contact',
-                'middleware' => [
-                    AuthenticationMiddleware::class,
-                    Handler\ContactHandler::class,
-                ],
-                'allowed_methods' => [Http::METHOD_GET],
-            ],
-            [
                 'path'       => '/cm/contact[/{list_id:\d+}[/{id:\d+}]]',
                 'name'       => 'cm.contact',
                 'middleware' => [

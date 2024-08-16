@@ -25,7 +25,9 @@
                     hx-get="<?=$this->url('cm.list')?>"
                     hx-target="#dialog"
                     type="button"
-                    class="btn btn-primary btn-md">New List</button>
+                    class="btn btn-primary btn-sm">
+                    <i class="bi bi-person-lines-fill"></i>
+                </button>
             </div><!--end::Col-->
         </div><!--end::Row-->
         <!--begin::Row-->
@@ -40,7 +42,6 @@
                         <div class="card-header">
                             <h2 class="card-title"><?=$list['list_name']?></h2>
                             <div class="card-tools">
-                                <span title="X Current Contacts" class="badge text-bg-primary"><?=$contactCount?></span>
                                 <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
                                     <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
                                     <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
@@ -49,7 +50,7 @@
                                     hx-get="<?=$this->url('cm.contact') . '/' . $list['id']?>"
                                     hx-target="#dialog"
                                     type="button" class="btn btn-primary btn-sm">
-                                    New Contact
+                                    <i class="bi bi-person-plus-fill"></i>
                                 </button>
                             </div>
                         </div>
@@ -77,7 +78,7 @@
                                                     hx-confirm="Are you sure you want to delete this contact?"
                                                     type="button"
                                                     class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-trash3"></i>
+                                                    <i class="bi bi-trash3-fill"></i>
                                                 </button>
                                             </div>
                                         </div>
