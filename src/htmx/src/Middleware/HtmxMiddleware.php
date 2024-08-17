@@ -11,6 +11,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+use const JSON_PRETTY_PRINT;
+
 use function json_encode;
 
 class HtmxMiddleware implements MiddlewareInterface
@@ -37,7 +39,7 @@ class HtmxMiddleware implements MiddlewareInterface
             $this->template->addDefaultParam(
                 TemplateRendererInterface::TEMPLATE_ALL,
                 'htmxConfig',
-                json_encode($this->htmxConfig['htmx']['config'])
+                json_encode($this->htmxConfig['htmx']['config'], JSON_PRETTY_PRINT)
             );
         }
         return $handler->handle($request);

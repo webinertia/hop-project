@@ -78,7 +78,8 @@
             "App\\": "src/App/src/",
             "ContactManager\\": "src/ContactManager/src/",
             "Htmx\\": "src/htmx/src",
-            "UserManager\\": "src/user-manager/src/"
+            "UserManager\\": "src/user-manager/src/",
+            "pico\\": "src/pico/src/"
         }
     },
     "autoload-dev": {

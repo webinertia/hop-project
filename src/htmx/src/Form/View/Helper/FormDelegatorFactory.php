@@ -11,7 +11,6 @@ use Psr\Container\ContainerInterface;
 
 class FormDelegatorFactory implements DelegatorFactoryInterface
 {
-
     /** @inheritDoc */
     public function __invoke(
         ContainerInterface $container,
