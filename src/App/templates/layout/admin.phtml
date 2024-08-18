@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 $this->headMeta()
     ->setCharSet('UTF-8')
-    ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+    ->appendName('viewport', 'width=device-width, initial-scale=1')
+    ->appendName('color-scheme', 'light dark')
     ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
 
 $this->headLink(
@@ -35,6 +36,9 @@ $this->headLink()
         'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css',
         'screen',
         '',
+    )->appendStylesheet(
+        'https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css',
+        'screen',
     )->appendStylesheet(
         $this->basePath('dashboard/css/adminlte.css'), // local styles
         'screen'

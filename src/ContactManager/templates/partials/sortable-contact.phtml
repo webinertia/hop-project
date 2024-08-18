@@ -10,7 +10,16 @@
                 hx-target="#dialog"
                 type="button"
                 class="btn btn-primary btn-sm">
-                Update
+                <i class="bi bi-pencil-square"></i>
+            </button>
+            <button
+                hx-delete="<?=$this->url('cm.contact', ['list_id' => $this->contact->list_id, 'id' => $this->contact->id])?>"
+                hx-target="#contact_<?=$this->contact->id?>"
+                hx-swap="outerHTML"
+                hx-confirm="Are you sure you want to delete this contact?"
+                type="button"
+                class="btn btn-primary btn-sm">
+                <i class="bi bi-trash3"></i>
             </button>
         </div>
     </div>

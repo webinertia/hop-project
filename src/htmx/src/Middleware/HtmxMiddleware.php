@@ -11,6 +11,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+use const JSON_PRETTY_PRINT;
+
 use function json_encode;
 
 class HtmxMiddleware implements MiddlewareInterface

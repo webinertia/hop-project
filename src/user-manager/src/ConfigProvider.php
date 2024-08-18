@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UserManager;
 
-use Fig\Http\Message\RequestMethodInterface as HttpMethod;
+use Fig\Http\Message\RequestMethodInterface as Http;
 use Mezzio\Application;
 use Mezzio\Container\ApplicationConfigInjectionDelegator;
 use Mezzio\Authentication\AuthenticationInterface;
@@ -20,6 +20,7 @@ final class ConfigProvider
         return [
             'authentication' => $this->getAuthenticationConfig(),
             'dependencies'   => $this->getDependencies(),
+            'form_elements'  => $this->getFormElementConfig(),
             'routes'         => $this->getRouteConfig(),
             'templates'      => $this->getTemplates(),
         ];
@@ -28,7 +29,7 @@ final class ConfigProvider
     public function getAuthenticationConfig(): array
     {
         return [
-            //'redirect' => '/user/account', // todo: decide on best way to handle this..
+            'redirect' => '/um/account', // redirect for authentication component post login
             'username' => 'email',
             'password' => 'password',
         ];
@@ -58,26 +59,55 @@ final class ConfigProvider
         ];
     }
 
+    public function getFormElementConfig(): array
+    {
+        return [
+            'factories' => [
+                Form\Login::class => Form\LoginFactory::class,
+            ],
+        ];
+    }
+
     public function getRouteConfig(): array
     {
         return [
             [
-                'path'       => '/login',
-                'name'       => 'login',
+                'path'       => '/um/login',
+                'name'       => 'um.login', // todo: update name to use um prefix
                 'middleware' => [
                     BodyParamsMiddleware::class,
                     Handler\LoginHandler::class,
                 ],
-                'allowed_methods' => [HttpMethod::METHOD_GET, HttpMethod::METHOD_POST]
+                'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST]
             ],
             [
-                'path'       => '/logout',
-                'name'       => 'logout',
+                'path'       => '/um/logout',
+                'name'       => 'um.logout',
                 'middleware' => [
                     BodyParamsMiddleware::class,
                     AuthenticationMiddleware::class,
                     Handler\LogoutHandler::class,
                 ],
+            ],
+            [
+                'path'        => '/um/register',
+                'name'        => 'um.register',
+                'middleware' => [
+                    BodyParamsMiddleware::class,
+                    AuthenticationMiddleware::class,
+                    Handler\RegistrationHandler::class,
+                ],
+                'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST],
+            ],
+            [
+                'path'        => '/um/account',
+                'name'        => 'um.account',
+                'middleware' => [
+                    BodyParamsMiddleware::class,
+                    AuthenticationMiddleware::class,
+                    Handler\RegistrationHandler::class,
+                ],
+                'allowed_methods' => [Http::METHOD_GET, Http::METHOD_POST],
             ],
         ];
     }
@@ -86,8 +116,8 @@ final class ConfigProvider
     {
         return [
             'paths' => [
-                'user-manager' => [__DIR__ . '/../templates/user-manager'],
-                'user-manager-partials' => [__DIR__ . '/../templates/partials'],
+                'um' => [__DIR__ . '/../templates/user-manager'],
+                'um-partials' => [__DIR__ . '/../templates/partials'],
             ],
         ];
     }

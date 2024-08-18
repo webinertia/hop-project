@@ -6,6 +6,7 @@ namespace ContactManager\Repository;
 
 use Axleus\Db\AbstractRepository;
 use Axleus\Db\RepositoryTrait;
+use Laminas\Db\Sql\Expression;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Where;
 
@@ -17,7 +18,15 @@ final class ContactRepository extends AbstractRepository
     {
         /** @var Select */
         $select = new Select(['c' => $this->gateway->getTable()]);
-        $select->columns(['id', 'user_id', 'first_name', 'last_name', 'email', 'list_id']);
+        $select->columns([
+            'id',
+            'user_id',
+            'first_name',
+            'last_name',
+            'email',
+            'list_id',
+            //'total_contacts' => new Expression('COUNT(user_id)')
+        ]);
         $where = new Where();
         $where->equalTo('user_id', $userId);
         // $select->join(
