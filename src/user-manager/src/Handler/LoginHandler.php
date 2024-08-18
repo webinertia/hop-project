@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UserManager\Handler;
 
-use App\Form\Login;
+use UserManager\Form\Login;
 use Fig\Http\Message\RequestMethodInterface as Http;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
@@ -50,10 +50,7 @@ class LoginHandler implements RequestHandlerInterface
 
         // Render and return a response:
         return new HtmlResponse($this->template->render(
-            'cm::landing',
-            [
-                'layout' => 'cm::landing-layout'
-            ] // parameters to pass to template
+            'um::login',
         ));
     }
 

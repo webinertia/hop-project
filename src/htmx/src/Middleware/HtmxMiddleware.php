@@ -39,7 +39,7 @@ class HtmxMiddleware implements MiddlewareInterface
             $this->template->addDefaultParam(
                 TemplateRendererInterface::TEMPLATE_ALL,
                 'htmxConfig',
-                json_encode($this->htmxConfig['htmx']['config'], JSON_PRETTY_PRINT)
+                json_encode($this->htmxConfig['htmx']['config'])
             );
         }
         return $handler->handle($request);

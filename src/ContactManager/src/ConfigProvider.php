@@ -57,7 +57,6 @@ class ConfigProvider
             ],
             'factories'  => [
                 Handler\ContactCrudHandler::class   => Handler\ContactCrudHandlerFactory::class,
-                Handler\ContactHandler::class       => Handler\ContactHandlerFactory::class,
                 Handler\ListHandler::class          => Handler\ListHandlerFactory::class,
                 Handler\DashboardHandler::class     => Handler\DashboardHandlerFactory::class,
                 Handler\LandingHandler::class       => Handler\LandingHandlerFactory::class,

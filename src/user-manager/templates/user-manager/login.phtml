@@ -10,17 +10,8 @@ $this->bodyClass('login-page bg-body-secondary');
         <div class="row">
             <div class="col-lg-9 ms-auto">
                 <?php
-                    if (isset($this->error)) {
-                        // show an error
-                    }
-
                     if (isset($this->form)) {
-                        $this->form->setAttribute('action', $this->url('login'));
-                        // $this->form->addSubmit(
-                        //     priority: -1,
-                        //     showText: 'Login',
-                        //     class: 'btn btn-md btn-info text-light'
-                        // );
+                        $this->form->setAttribute('action', $this->url('um.login'));
                         echo $this->form($this->form);
                     }
                 ?>
