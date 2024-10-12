@@ -65,7 +65,7 @@
     "require-dev": {
         "axleus/axleus-dev-tools": "1.0.x-dev",
         "filp/whoops": "^2.15.4",
-        "laminas/laminas-coding-standard": "~2.5.0",
+        "laminas/laminas-coding-standard": "~3.0.0",
         "laminas/laminas-development-mode": "^3.12.0",
         "mezzio/mezzio-tooling": "^2.9",
         "phpunit/phpunit": "^10.5.5",
